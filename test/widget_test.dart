@@ -7,7 +7,6 @@
 
 import 'package:clean_architechture/config/theme.dart';
 import 'package:clean_architechture/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 
