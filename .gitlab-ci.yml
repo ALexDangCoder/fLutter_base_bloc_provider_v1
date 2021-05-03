@@ -23,6 +23,8 @@ before_script:
 test:
   stage: test
   when: always
+  tags:
+    - flutter_build
   script:
     - flutter analyze
     - flutter test --coverage
