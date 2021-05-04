@@ -184,3 +184,8 @@ So that need to use older version
 ## How to change version number and version code :
 - Go to pubspec.yaml => line version to change : 
 - Example : 1.0.10+3 => Version name : 1.0.10, Version code : 3
+
+## Set-up Gitlab CI
+- Follow this link to create runner and register Runner : https://docs.gitlab.com/runner/install/
+- If runner got warning : Run this terminal to verify runner again : gitlab-runner verify
+- Remember using image : cirrusci/flutter:stable on gitlab.ci config
