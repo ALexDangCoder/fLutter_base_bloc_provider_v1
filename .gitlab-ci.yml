@@ -1,4 +1,4 @@
-image: cirrusci/flutter:2.0.4
+image: cirrusci/flutter:stable
 
 stages:
   - test
@@ -9,16 +9,6 @@ before_script:
   - flutter pub global activate pubspec_version
   - flutter pub global activate intl_utils
   - flutter pub global run intl_utils:generate
-  - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
-  - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
-  - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
-  - export BUILD_NUMBER=$CI_PIPELINE_IID
-  - echo Build Version $BUILD_VERSION
-  - echo Build Number $BUILD_NUMBER
-  - mkdir $CI_PROJECT_DIR/android/app/src/production
-  - echo $B64_GOOGLE_SERVICES_JSON  | base64 --decode > $CI_PROJECT_DIR/android/app/src/production/google-services.json
-  - if [ -n "$B64_KEYSTORE_PROPERTIES" ]; then echo $B64_KEYSTORE_PROPERTIES | base64 --decode > $CI_PROJECT_DIR/android/app/keystore.properties; fi
-  - if [ -n "$B64_KEYSTORE" ]; then echo $B64_KEYSTORE | base64 --decode > $CI_PROJECT_DIR/android/app/master.keystore; fi
 
 test:
   stage: test
