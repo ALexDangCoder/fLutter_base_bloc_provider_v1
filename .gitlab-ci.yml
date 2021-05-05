@@ -49,6 +49,7 @@ deploy_android_dev:
   dependencies:
     - build_android_dev
   script:
+    - npm install -g appcenter-cli
     - appcenter login --token $APPCENTER_API_TOKEN
     - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app $APPCENTER_USER_NAME/$APPCENTER_PROJECT
   tags:
