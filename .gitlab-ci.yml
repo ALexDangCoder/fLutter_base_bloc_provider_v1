@@ -63,8 +63,10 @@ deploy_android_dev:
 #    - export APPCENTER_USER_NAME=thoapham163
     - echo '${APPCENTER_ACCESS_TOKEN}'
     - echo ${APPCENTER_ACCESS_TOKEN}
+    - echo $APPCENTER_ACCESS_TOKEN
+
     - npm install -g appcenter-cli
-    - appcenter login --token ${APPCENTER_ACCESS_TOKEN}
+    - appcenter login --token $APPCENTER_ACCESS_TOKEN
     - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app [thoapham163]/[Flutter-Temp]
   tags:
     - flutter_build
