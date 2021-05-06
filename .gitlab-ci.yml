@@ -61,7 +61,7 @@ deploy_android_dev:
   script:
     - npm install -g appcenter-cli
     - echo "$APPCENTER_ACCESS_TOKEN"
-    - appcenter login --token $APPCENTER_ACCESS_TOKEN
+    - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
     - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app $APPCENTER_USER_NAME/$APPCENTER_PROJECT
   tags:
     - flutter_build
