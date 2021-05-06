@@ -2,67 +2,66 @@ image: cirrusci/flutter:stable
 
 
 stages:
-#  - test
-#  - build
+  - test
+  - build
   - deploy
 
 
-#test:
-#  stage: test
-#  when: always
-#  tags:
-#    - flutter_build
-#  before_script:
-#    - flutter pub get
-#    - flutter pub run build_runner build --delete-conflicting-outputs
-#    - flutter pub global activate pubspec_version
-#    - flutter pub global activate intl_utils
-#    - flutter pub global run intl_utils:generate
-#  script:
-#    - flutter analyze
-#    - flutter test --coverage
-#  only:
-#    - /^bugfix/.*$/
-#    - /^feature/.*$/
-#    - /^epic/.*$/
-#    - /^hotfix/.*$/
-#    - develop
-#
-#build_android_dev: #Job name
-#  stage: build # kind of job
-#  when: always
-#  before_script:
-#    - flutter pub get
-#    - flutter pub run build_runner build --delete-conflicting-outputs
-#    - flutter pub global activate pubspec_version
-#    - flutter pub global activate intl_utils
-#    - flutter pub global run intl_utils:generate
-#  script:
-#    - flutter build apk --flavor development
-#  artifacts:
-#    paths:
-#      - build/app/outputs/apk/release/app-release.apk
-#  tags:
-#    - flutter_build
-#  only:
-#    - /^bugfix/.*$/
-#    - /^feature/.*$/
-#    - /^epic/.*$/
-#    - /^hotfix/.*$/
-#    - develop
+test:
+  stage: test
+  when: always
+  tags:
+    - flutter_build
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter analyze
+    - flutter test --coverage
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
+
+build_android_dev: #Job name
+  stage: build # kind of job
+  when: always
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter build apk --flavor development
+  artifacts:
+    paths:
+      - build/app/outputs/apk/release/app-release.apk
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
 
 deploy_android_dev:
   image: node:10
   stage: deploy
 
-#  dependencies:
-#    - build_android_dev
+  dependencies:
+    - build_android_dev
   script:
     - echo $APPCENTER_ACCESS_TOKEN
 
     - npm install -g appcenter-cli
-    - appcenter login --token $APPCENTER_ACCESS_TOKEN
-    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app [thoapham163]/[Flutter-Temp]
+    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app [thoapham163]/[Flutter-Temp] --token $APPCENTER_ACCESS_TOKEN
   tags:
     - flutter_build
   only:
