@@ -58,13 +58,13 @@ deploy_android_dev:
 #  dependencies:
 #    - build_android_dev
   script:
-    - export TOKEN = $APPCENTER_ACCESS_TOKEN
+#    - export TOKEN = $APPCENTER_ACCESS_TOKEN
 #    - export APPCENTER_PROJECT=Flutter-Temp
 #    - export APPCENTER_USER_NAME=thoapham163
     - echo '${APPCENTER_ACCESS_TOKEN}'
     - echo ${APPCENTER_ACCESS_TOKEN}
     - echo $APPCENTER_ACCESS_TOKEN
-    - echo $TOKEN
+#    - echo $TOKEN
 
     - npm install -g appcenter-cli
     - appcenter login --token $TOKEN
