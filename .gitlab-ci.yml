@@ -58,12 +58,12 @@ deploy_android_dev:
   dependencies:
     - build_android_dev
   script:
-#    - export APPCENTER_ACCESS_TOKEN=cba89a0bfc181e1b303029fb8fd74563f305e803
+#    - export =cba89a0bfc181e1b303029fb8fd74563f305e803
 #    - export APPCENTER_PROJECT=Flutter-Temp
 #    - export APPCENTER_USER_NAME=thoapham163
     - npm install -g appcenter-cli
-    - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
-    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app thoapham163/Flutter-Temp
+    - appcenter login --token '${APPCENTER_ACCESS_TOKEN}'
+    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators —app [thoapham163]/[Flutter-Temp]
   tags:
     - flutter_build
   only:
