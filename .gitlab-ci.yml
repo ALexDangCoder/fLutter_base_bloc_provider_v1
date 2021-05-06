@@ -45,6 +45,7 @@ build_android_dev: #Job name
     - develop
 
 deploy_android_dev:
+  image: node:10
   stage: deploy
   dependencies:
     - build_android_dev
