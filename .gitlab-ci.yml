@@ -81,8 +81,8 @@ deploy_android_dev_mask:
   image: node:latest
   stage: deploy
 
-  dependencies:
-    - build_android_dev
+#  dependencies:
+#    - build_android_dev
   script:
     - echo $APP_TOKEN
     - echo $APP_NAME
@@ -105,8 +105,8 @@ deploy_android_dev_hard_code:
   image: node:latest
   stage: deploy
 
-  dependencies:
-    - build_android_dev
+#  dependencies:
+#    - build_android_dev
   script:
 #    - echo $APPCENTER_ACCESS_TOKEN
 #    - echo $MOBILE_CENTER_CURRENT_APP
