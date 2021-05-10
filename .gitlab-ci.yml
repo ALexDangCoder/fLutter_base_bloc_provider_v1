@@ -54,16 +54,19 @@ build_android_dev: #Job name
 deploy_android_dev:
   image: node:latest
   stage: deploy
+  variables:
+    APP_TOKEN : $APPCENTER_ACCESS_TOKEN
+    APP_NAME : $MOBILE_CENTER_CURRENT_APP
 
   dependencies:
     - build_android_dev
   script:
-    - echo $APPCENTER_ACCESS_TOKEN
-    - echo $MOBILE_CENTER_CURRENT_APP
+    - echo $APP_TOKEN
+    - echo $APP_NAME
 
     - npm install -g appcenter-cli
-    - appcenter login --token ${APPCENTER_ACCESS_TOKEN}
-    - appcenter apps set-current ${MOBILE_CENTER_CURRENT_APP}
+    - appcenter login --token $APP_TOKEN
+    - appcenter apps set-current $APP_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
     - flutter_build
