@@ -2,94 +2,65 @@ image: cirrusci/flutter:stable
 
 
 stages:
-#  - test
-#  - build
+  - test
+  - build
   - deploy
 
 
-#test:
-#  stage: test
-#  when: always
-#  tags:
-#    - flutter_build
-#  before_script:
-#    - flutter pub get
-#    - flutter pub run build_runner build --delete-conflicting-outputs
-#    - flutter pub global activate pubspec_version
-#    - flutter pub global activate intl_utils
-#    - flutter pub global run intl_utils:generate
-#  script:
-#    - flutter analyze
-#    - flutter test --coverage
-#  only:
-#    - /^bugfix/.*$/
-#    - /^feature/.*$/
-#    - /^epic/.*$/
-#    - /^hotfix/.*$/
-#    - develop
-#
-#build_android_dev: #Job name
-#  stage: build # kind of job
-#  when: always
-#  before_script:
-#    - flutter pub get
-#    - flutter pub run build_runner build --delete-conflicting-outputs
-#    - flutter pub global activate pubspec_version
-#    - flutter pub global activate intl_utils
-#    - flutter pub global run intl_utils:generate
-#  script:
-#    - flutter build apk --flavor development
-#  artifacts:
-#    paths:
-#      - build/app/outputs/flutter-apk/app-development-release.apk
-#  tags:
-#    - flutter_build
-#  only:
-#    - /^bugfix/.*$/
-#    - /^feature/.*$/
-#    - /^epic/.*$/
-#    - /^hotfix/.*$/
-#    - develop
+test:
+  stage: test
+  when: always
+  tags:
+    - flutter_build
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter analyze
+    - flutter test --coverage
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
+
+build_android_dev: #Job name
+  stage: build # kind of job
+  when: always
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter build apk --flavor development
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-development-release.apk
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
 
 deploy_android_dev:
   image: node:latest
   stage: deploy
-  variables:
-    APP_TOKEN : $APP_CENTER_TOKEN
-    APP_NAME : $MOBILE_CENTER_CURRENT_APP
 
-#  dependencies:
-#    - build_android_dev
+  dependencies:
+    - build_android_dev
   script:
-    - echo $APP_TOKEN
-    - echo $APP_NAME
-
-    - npm install -g appcenter-cli
-    - appcenter login --token $APP_TOKEN
-    - appcenter apps set-current $APP_NAME
-    - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
-  tags:
-    - flutter_build
-  only:
-    - /^bugfix/.*$/
-    - /^feature/.*$/
-    - /^epic/.*$/
-    - /^hotfix/.*$/
-    - develop
-
-deploy_android_dev_mask:
-  image: node:latest
-  stage: deploy
-
-#  dependencies:
-#    - build_android_dev
-  script:
-    - echo $APP_TOKEN
-    - echo $APP_NAME
-
     - npm install -g appcenter-cli
     - appcenter login --token $APP_CENTER_TOKEN
-    - appcenter apps set-current $MOBILE_CENTER_CURRENT_APP
+    - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
     - flutter_build
@@ -100,26 +71,3 @@ deploy_android_dev_mask:
     - /^hotfix/.*$/
     - develop
 
-
-deploy_android_dev_hard_code:
-  image: node:latest
-  stage: deploy
-
-#  dependencies:
-#    - build_android_dev
-  script:
-#    - echo $APPCENTER_ACCESS_TOKEN
-#    - echo $MOBILE_CENTER_CURRENT_APP
-
-    - npm install -g appcenter-cli
-    - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
-    - appcenter apps set-current thoapham163/Flutter-Temp
-    - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
-  tags:
-    - flutter_build
-  only:
-    - /^bugfix/.*$/
-    - /^feature/.*$/
-    - /^epic/.*$/
-    - /^hotfix/.*$/
-    - develop
