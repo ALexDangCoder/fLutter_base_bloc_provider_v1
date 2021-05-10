@@ -62,7 +62,7 @@ deploy_android_dev:
     - echo $MOBILE_CENTER_CURRENT_APP
 
     - npm install -g appcenter-cli
-    - appcenter login --token ${APPCENTER_ACCESS_TOKEN}
+    - appcenter login --token "$APPCENTER_ACCESS_TOKEN"
     - appcenter apps set-current ${MOBILE_CENTER_CURRENT_APP}
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
