@@ -41,7 +41,7 @@ build_android_dev: #Job name
     - flutter build apk --flavor development
   artifacts:
     paths:
-      - build/app/outputs/apk/release/app-release.apk
+      - build/app/outputs/flutter-apk/app-development-release.apk
   tags:
     - flutter_build
   only:
@@ -63,7 +63,7 @@ deploy_android_dev:
     - npm install -g appcenter-cli
     - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
     - appcenter apps set-current thoapham163/Flutter-Temp
-    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators
+    - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
     - flutter_build
   only:
