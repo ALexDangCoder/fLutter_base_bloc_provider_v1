@@ -99,7 +99,7 @@ deploy_android_staging:
   stage: deploy
 
   dependencies:
-    - build_android_dev
+    - build_android_staging
   script:
     - npm install -g appcenter-cli
     - appcenter login --token $APP_CENTER_TOKEN
