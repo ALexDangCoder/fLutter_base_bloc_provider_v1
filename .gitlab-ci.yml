@@ -54,9 +54,6 @@ build_android_dev: #Job name
 deploy_android_dev:
   image: node:latest
   stage: deploy
-  variables:
-    APPCENTER_ACCESS_TOKEN: "cba89a0bfc181e1b303029fb8fd74563f305e803"
-    MOBILE_CENTER_CURRENT_APP: "thoapham163/Flutter-Temp"
 
   dependencies:
     - build_android_dev
