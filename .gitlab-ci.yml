@@ -52,7 +52,7 @@ build_android_dev: #Job name
     - develop
 
 deploy_android_dev:
-  image: node:10
+  image: node:latest
   stage: deploy
 
   dependencies:
