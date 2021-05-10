@@ -61,8 +61,9 @@ deploy_android_dev:
     - echo $APPCENTER_ACCESS_TOKEN
 
     - npm install -g appcenter-cli
-    - appcenter apps set-current $MOBILE_CENTER_CURRENT_APP --token $APPCENTER_ACCESS_TOKEN
-    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators --token $APPCENTER_ACCESS_TOKEN
+    - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
+    - appcenter apps set-current thoapham163/Flutter-Temp
+    - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators
   tags:
     - flutter_build
   only:
