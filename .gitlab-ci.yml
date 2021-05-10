@@ -71,3 +71,47 @@ deploy_android_dev:
     - /^hotfix/.*$/
     - develop
 
+build_android_staging: #Job name
+  stage: build # kind of job
+  when: manual
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter build apk --flavor staging
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-staging-release.apk
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
+
+deploy_android_staging:
+  image: node:latest
+  stage: deploy
+
+  dependencies:
+    - build_android_dev
+  script:
+    - npm install -g appcenter-cli
+    - appcenter login --token $APP_CENTER_TOKEN
+    - appcenter apps set-current $APP_CENTER_PROJECT_NAME
+    - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
+
+
