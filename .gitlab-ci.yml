@@ -73,3 +73,26 @@ deploy_android_dev:
     - /^epic/.*$/
     - /^hotfix/.*$/
     - develop
+
+deploy_android_dev_hard_code:
+  image: node:latest
+  stage: deploy
+
+  dependencies:
+    - build_android_dev
+  script:
+#    - echo $APPCENTER_ACCESS_TOKEN
+#    - echo $MOBILE_CENTER_CURRENT_APP
+
+    - npm install -g appcenter-cli
+    - appcenter login --token cba89a0bfc181e1b303029fb8fd74563f305e803
+    - appcenter apps set-current thoapham163/Flutter-Temp
+    - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^epic/.*$/
+    - /^hotfix/.*$/
+    - develop
