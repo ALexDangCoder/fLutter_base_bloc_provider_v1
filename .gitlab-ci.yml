@@ -46,7 +46,7 @@ build_android_dev: #Job name
         -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" \
         -F channels="${SLACK_CHANNEL_ID}" \
         -F initial_comment="Here's new apk development version" \
-        -F "file=@$(find build/app/outputs/flutter-apk -name 'app*')" \
+        -F "file=build/app/outputs/flutter-apk/app-development-release.apk" \
         https://slack.com/api/files.upload
   artifacts:
     paths:
