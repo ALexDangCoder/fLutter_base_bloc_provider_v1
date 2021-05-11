@@ -65,6 +65,11 @@ deploy_android_dev:
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
     - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^hotfix/.*$/
+    - develop
 
 build_android_staging:
   stage: build
@@ -101,6 +106,8 @@ deploy_android_staging:
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
   tags:
     - flutter_build
+  only:
+    - /^release/.*$/
 
 build_android_production:
   stage: build
@@ -137,4 +144,6 @@ deploy_android_production:
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-production-release.apk -g Collaborators
   tags:
     - flutter_build
+  only:
+    - master
 
