@@ -30,7 +30,7 @@ test:
 build_android_dev: #Job name
   stage: build # kind of job
   when: manual
-  allow_failure: false
+  allow_failure: false #Make to skip build step and deploy step
   needs:
     - test
   before_script:
@@ -41,6 +41,13 @@ build_android_dev: #Job name
     - flutter pub global run intl_utils:generate
   script:
     - flutter build apk --flavor development
+    - |
+      curl \
+        -F token="${SLACK_CHANNEL_ACCESS_TOKEN}" \
+        -F channels="${SLACK_CHANNEL_ID}" \
+        -F initial_comment="Here's new apk development version" \
+        -F "file=@$(find build/app/outputs/flutter-apk -name 'app*')" \
+        https://slack.com/api/files.upload
   artifacts:
     paths:
       - build/app/outputs/flutter-apk/app-development-release.apk
@@ -75,6 +82,7 @@ deploy_android_dev:
 build_android_staging:
   stage: build
   when: manual
+  allow_failure: false
   needs:
     - test
   before_script:
@@ -113,6 +121,8 @@ deploy_android_staging:
 build_android_production:
   stage: build
   when: manual
+  allow_failure: false
+
   needs:
     - test
   before_script:
