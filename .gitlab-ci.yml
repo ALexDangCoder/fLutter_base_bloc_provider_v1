@@ -24,7 +24,6 @@ test:
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
-    - /^epic/.*$/
     - /^hotfix/.*$/
     - develop
 
@@ -49,13 +48,13 @@ build_android_dev: #Job name
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
-    - /^epic/.*$/
     - /^hotfix/.*$/
     - develop
 
 deploy_android_dev:
   image: node:latest
   stage: deploy
+  when: manual
 
   needs:
     - build_android_dev
@@ -66,15 +65,9 @@ deploy_android_dev:
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
     - flutter_build
-  only:
-    - /^bugfix/.*$/
-    - /^feature/.*$/
-    - /^epic/.*$/
-    - /^hotfix/.*$/
-    - develop
 
-build_android_staging: #Job name
-  stage: build # kind of job
+build_android_staging:
+  stage: build
   when: manual
   needs:
     - test
@@ -92,15 +85,13 @@ build_android_staging: #Job name
   tags:
     - flutter_build
   only:
-    - /^bugfix/.*$/
-    - /^feature/.*$/
-    - /^epic/.*$/
-    - /^hotfix/.*$/
-    - develop
+    - /^release/.*$/
 
 deploy_android_staging:
   image: node:latest
   stage: deploy
+  when: manual
+
   needs:
     - build_android_staging
   script:
@@ -110,11 +101,40 @@ deploy_android_staging:
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
   tags:
     - flutter_build
-  only:
-    - /^bugfix/.*$/
-    - /^feature/.*$/
-    - /^epic/.*$/
-    - /^hotfix/.*$/
-    - develop
 
+build_android_production:
+  stage: build
+  when: manual
+  needs:
+    - test
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+  script:
+    - flutter build apk --flavor production
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-production-release.apk
+  tags:
+    - flutter_build
+  only:
+    - master
+
+deploy_android_production:
+  image: node:latest
+  stage: deploy
+  when: manual
+
+  needs:
+    - build_android_production
+  script:
+    - npm install -g appcenter-cli
+    - appcenter login --token $APP_CENTER_TOKEN
+    - appcenter apps set-current $APP_CENTER_PROJECT_NAME
+    - appcenter distribute release -f build/app/outputs/flutter-apk/app-production-release.apk -g Collaborators
+  tags:
+    - flutter_build
 
