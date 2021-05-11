@@ -18,9 +18,13 @@ test:
     - flutter pub global activate pubspec_version
     - flutter pub global activate intl_utils
     - flutter pub global run intl_utils:generate
+    - export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+
   script:
     - flutter analyze
     - flutter test --coverage
+    - export PAYLOAD=$(echo 'payload={"text":"Test slack integration via yaml"}')
+    - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
@@ -42,8 +46,7 @@ build_android_dev: #Job name
     - export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
   script:
     - flutter build apk --flavor development
-    - export PAYLOAD=$(echo 'payload={"username":"App Deployment","attachments":[{"fallback":"New build for Android is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download APK","url":"'$CI_JOB_URL'/artifacts/build/app/outputs/flutter-apk/app-development-release.apk"}],"fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
-    - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
+
   artifacts:
     paths:
       - build/app/outputs/flutter-apk/app-development-release.apk
