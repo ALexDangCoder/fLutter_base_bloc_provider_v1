@@ -97,6 +97,7 @@ build_android_staging: #Job name
 deploy_android_staging:
   image: node:latest
   stage: deploy
+  when: manual
 
   dependencies:
     - build_android_staging
