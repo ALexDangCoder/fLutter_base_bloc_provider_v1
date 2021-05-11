@@ -54,7 +54,7 @@ build_android_dev: #Job name
 deploy_android_dev:
   image: node:latest
   stage: deploy
-  when: manual
+  when: on_success
 
   needs:
     - build_android_dev
@@ -95,7 +95,7 @@ build_android_staging:
 deploy_android_staging:
   image: node:latest
   stage: deploy
-  when: manual
+  when: on_success
 
   needs:
     - build_android_staging
