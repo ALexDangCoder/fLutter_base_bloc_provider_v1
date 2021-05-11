@@ -30,7 +30,7 @@ test:
 
 build_android_dev: #Job name
   stage: build # kind of job
-  when: always
+  when: manual
   before_script:
     - flutter pub get
     - flutter pub run build_runner build --delete-conflicting-outputs
@@ -55,6 +55,8 @@ deploy_android_dev:
   image: node:latest
   stage: deploy
 
+  needs:
+    - build_android_dev
   dependencies:
     - build_android_dev
   script:
@@ -97,8 +99,8 @@ build_android_staging: #Job name
 deploy_android_staging:
   image: node:latest
   stage: deploy
-  when: manual
-
+  needs:
+    - build_android_staging
   dependencies:
     - build_android_staging
   script:
