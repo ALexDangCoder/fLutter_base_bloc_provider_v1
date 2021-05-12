@@ -17,7 +17,6 @@ stages:
     - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
     - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
     - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
-    - export BUILD_NUMBER=$CI_PIPELINE_IID
     - echo Build Version $BUILD_VERSION
     - echo Build Number $BUILD_NUMBER
 
