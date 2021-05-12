@@ -6,6 +6,16 @@ stages:
   - build
   - deploy
 
+.before_script_template: &mobileBeforeScript
+  before_script:
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+    - export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+    - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
+    - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
 
 test:
   stage: test
@@ -33,16 +43,14 @@ build_android_dev: #Job name
   allow_failure: false #Make to skip build step and deploy step
   needs:
     - test
-  before_script:
-    - flutter pub get
-    - flutter pub run build_runner build --delete-conflicting-outputs
-    - flutter pub global activate pubspec_version
-    - flutter pub global activate intl_utils
-    - flutter pub global run intl_utils:generate
-    - export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+  <<: *mobileBeforeScript
+
   script:
-    - flutter build apk --flavor development
-    - export PAYLOAD=$(echo 'payload={"text":"App Deployment","username":"App Deployment","attachments":[{"fallback":"New app build for Android is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download APK","url":"'$CI_JOB_URL'/artifacts/raw/build/app/outputs/flutter-apk/app-development-release.apk"}],"pretext":"New Android build is out!", "color":"'$BUILD_COLOR'","fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},{"title":"Flavour", "value":"'Dev'","short":true},{"title":"Version Code", "value":"'1'","short":true},{"title":"Version", "value":"'1'","short":true}],"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
+    # These step is set-up for distribute to slack app
+    - export BUILD_FLAVOR="Dev"
+    - export BUILD_FLAVOR_KEY="development"
+    - export PAYLOAD=$(echo 'payload={"username":"Flutter Temp","attachments":[{"fallback":"New app build for Android is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download APK","url":"'$CI_JOB_URL'/artifacts/raw/build/app/outputs/flutter-apk/app-development-release.apk"}],"pretext":"New Android build is out!","fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},{"title":"Flavor", "value":"'$BUILD_FLAVOR'","short":true},{"title":"Version Code", "value":"'$BUILD_NUMBER'","short":true},{"title":"Version", "value":"'$BUILD_VERSION'","short":true}],"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
+    - flutter build apk --flavor $BUILD_FLAVOR_KEY
     - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
   artifacts:
     paths:
@@ -81,14 +89,14 @@ build_android_staging:
   allow_failure: false
   needs:
     - test
-  before_script:
-    - flutter pub get
-    - flutter pub run build_runner build --delete-conflicting-outputs
-    - flutter pub global activate pubspec_version
-    - flutter pub global activate intl_utils
-    - flutter pub global run intl_utils:generate
+  <<: *mobileBeforeScript
+
   script:
-    - flutter build apk --flavor staging
+    - export BUILD_FLAVOR="Staging"
+    - export BUILD_FLAVOR_KEY="staging"
+    - export PAYLOAD=$(echo 'payload={"username":"Flutter Temp","attachments":[{"fallback":"New app build for Android is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download APK","url":"'$CI_JOB_URL'/artifacts/raw/build/app/outputs/flutter-apk/app-development-release.apk"}],"pretext":"New Android build is out!","fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},{"title":"Flavor", "value":"'$BUILD_FLAVOR'","short":true},{"title":"Version Code", "value":"'$BUILD_NUMBER'","short":true},{"title":"Version", "value":"'$BUILD_VERSION'","short":true}],"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
+    - flutter build apk --flavor $BUILD_FLAVOR_KEY
+    - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
   artifacts:
     paths:
       - build/app/outputs/flutter-apk/app-staging-release.apk
@@ -121,14 +129,14 @@ build_android_production:
 
   needs:
     - test
-  before_script:
-    - flutter pub get
-    - flutter pub run build_runner build --delete-conflicting-outputs
-    - flutter pub global activate pubspec_version
-    - flutter pub global activate intl_utils
-    - flutter pub global run intl_utils:generate
+  <<: *mobileBeforeScript
+
   script:
-    - flutter build apk --flavor production
+    - export BUILD_FLAVOR="Production"
+    - export BUILD_FLAVOR_KEY="production"
+    - export PAYLOAD=$(echo 'payload={"username":"Flutter Temp","attachments":[{"fallback":"New app build for Android is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download APK","url":"'$CI_JOB_URL'/artifacts/raw/build/app/outputs/flutter-apk/app-development-release.apk"}],"pretext":"New Android build is out!","fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},{"title":"Flavor", "value":"'$BUILD_FLAVOR'","short":true},{"title":"Version Code", "value":"'$BUILD_NUMBER'","short":true},{"title":"Version", "value":"'$BUILD_VERSION'","short":true}],"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
+    - flutter build apk --flavor $BUILD_FLAVOR_KEY
+    - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
   artifacts:
     paths:
       - build/app/outputs/flutter-apk/app-production-release.apk
