@@ -13,7 +13,6 @@ stages:
     - flutter pub global activate pubspec_version
     - flutter pub global activate intl_utils
     - flutter pub global run intl_utils:generate
-    - export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
     - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
     - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
     - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
@@ -71,7 +70,7 @@ deploy_android_dev:
     - build_android_dev
   script:
     - npm install -g appcenter-cli
-    - appcenter login --token $APP_CENTER_TOKEN
+    - appcenter login
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
@@ -113,7 +112,7 @@ deploy_android_staging:
     - build_android_staging
   script:
     - npm install -g appcenter-cli
-    - appcenter login --token $APP_CENTER_TOKEN
+    - appcenter login
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
   tags:
@@ -153,7 +152,7 @@ deploy_android_production:
     - build_android_production
   script:
     - npm install -g appcenter-cli
-    - appcenter login --token $APP_CENTER_TOKEN
+    - appcenter login
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-production-release.apk -g Collaborators
   tags:
