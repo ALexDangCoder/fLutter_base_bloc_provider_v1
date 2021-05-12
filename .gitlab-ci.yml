@@ -70,7 +70,7 @@ deploy_android_dev:
     - build_android_dev
   script:
     - npm install -g appcenter-cli
-    - appcenter login
+    - appcenter login --token $APP_CENTER_TOKEN
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
@@ -112,7 +112,7 @@ deploy_android_staging:
     - build_android_staging
   script:
     - npm install -g appcenter-cli
-    - appcenter login
+    - appcenter login --token $APP_CENTER_TOKEN
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
   tags:
@@ -152,7 +152,7 @@ deploy_android_production:
     - build_android_production
   script:
     - npm install -g appcenter-cli
-    - appcenter login
+    - appcenter login --token $APP_CENTER_TOKEN
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-production-release.apk -g Collaborators
   tags:
