@@ -162,6 +162,7 @@ deploy_android_production:
 
 build_ios_dev:
   when: manual
+  stage: build
   allow_failure: false
   needs:
     - test
