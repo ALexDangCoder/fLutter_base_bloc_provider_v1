@@ -160,3 +160,31 @@ deploy_android_production:
   only:
     - master
 
+build_ios_dev:
+  when: manual
+  allow_failure: false
+  needs:
+    - test
+  <<: *mobileBeforeScript
+
+  script:
+    - export BUILD_FLAVOR="Dev"
+    - export BUILD_FLAVOR_KEY="development"
+    - export PAYLOAD=$(echo 'payload={"username":"Flutter Temp","attachments":[{"fallback":"New app build for IOS is out!", "actions":[{"type":"button","text":"See Commits","url":"https://git.vmo.dev/c3/flutter-temp/commits/'$CI_BUILD_REF_NAME'#commit-'$CI_COMMIT_SHORT_SHA'"},{"type":"button","text":"View Pipeline","url":"https://git.vmo.dev/c3/flutter-temp/pipelines/'$CI_PIPELINE_ID'"},{"type":"button","text":"Download IPA","url":"'$CI_JOB_URL'/artifacts/raw/ios/build/Runner.ipa"}],"pretext":"New IOS build is out!","fields":[{"title":"Last Commit", "value":"'$CI_COMMIT_TITLE'","short":false},{"title":"Branch", "value":"'$CI_BUILD_REF_NAME'","short":false},{"title":"Flavor", "value":"'$BUILD_FLAVOR'","short":true},{"title":"Version Code", "value":"'$BUILD_NUMBER'","short":true},{"title":"Version", "value":"'$BUILD_VERSION'","short":true}],"footer":"Build triggered by '$GITLAB_USER_NAME' | SHA':' '$CI_COMMIT_SHORT_SHA'"}]}')
+    - flutter build ios --flavor $BUILD_FLAVOR_KEY
+    - if [ -d archive ]; then rm -rf archive; fi && mkdir archive
+    - if [ -d artifact ]; then rm -rf artifact; fi && mkdir artifact
+    - cd ios
+    - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive
+    - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ./build
+    - curl -X POST --data-urlencode "$PAYLOAD" $SLACK_WEBHOOK_URL
+  artifacts:
+    paths:
+      - ios/build/Runner.ipa
+  tags:
+    - flutter_build
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^hotfix/.*$/
+    - develop
