@@ -8,23 +8,22 @@ stages:
 
 .before_script_template: &mobileBeforeScript
   before_script:
-    - echo "HELLO"
-#    - flutter pub get
-#    - flutter pub run build_runner build --delete-conflicting-outputs
-#    - flutter pub global activate pubspec_version
-#    - flutter pub global activate intl_utils
-#    - flutter pub global run intl_utils:generate
-#    - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
-#    - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
-#    - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
-#    - echo Build Version $BUILD_VERSION
-#    - echo Build Number $BUILD_NUMBER
+    - flutter pub get
+    - flutter pub run build_runner build --delete-conflicting-outputs
+    - flutter pub global activate pubspec_version
+    - flutter pub global activate intl_utils
+    - flutter pub global run intl_utils:generate
+    - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
+    - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
+    - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
+    - echo Build Version $BUILD_VERSION
+    - echo Build Number $BUILD_NUMBER
 
 test:
   stage: test
   when: always
   tags:
-    - flutter_build
+    - vmo
   <<: *mobileBeforeScript
 
   script:
@@ -36,7 +35,7 @@ test:
     - /^hotfix/.*$/
     - develop
 
-.build_android_dev: #Job name
+build_android_dev: #Job name
   stage: build # kind of job
   when: manual
   allow_failure: false #Make to skip build step and deploy step
@@ -55,14 +54,14 @@ test:
     paths:
       - build/app/outputs/flutter-apk/app-development-release.apk
   tags:
-    - flutter_build
+    - vmo
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
     - /^hotfix/.*$/
     - develop
 
-.deploy_android_dev:
+deploy_android_dev:
   image: node:latest
   stage: deploy
   when: manual
@@ -75,14 +74,14 @@ test:
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-development-release.apk -g Collaborators
   tags:
-    - flutter_build
+    - vmo
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
     - /^hotfix/.*$/
     - develop
 
-.build_android_staging:
+build_android_staging:
   stage: build
   when: manual
   allow_failure: false
@@ -100,11 +99,11 @@ test:
     paths:
       - build/app/outputs/flutter-apk/app-staging-release.apk
   tags:
-    - flutter_build
+    - vmo
   only:
     - /^release/.*$/
 
-.deploy_android_staging:
+deploy_android_staging:
   image: node:latest
   stage: deploy
   when: manual
@@ -117,11 +116,11 @@ test:
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-staging-release.apk -g Collaborators
   tags:
-    - flutter_build
+    - vmo
   only:
     - /^release/.*$/
 
-.build_android_production:
+build_android_production:
   stage: build
   when: manual
   allow_failure: false
@@ -140,11 +139,11 @@ test:
     paths:
       - build/app/outputs/flutter-apk/app-production-release.apk
   tags:
-    - flutter_build
+    - vmo
   only:
     - master
 
-.deploy_android_production:
+deploy_android_production:
   image: node:latest
   stage: deploy
   when: manual
@@ -157,11 +156,11 @@ test:
     - appcenter apps set-current $APP_CENTER_PROJECT_NAME
     - appcenter distribute release -f build/app/outputs/flutter-apk/app-production-release.apk -g Collaborators
   tags:
-    - flutter_build
+    - vmo
   only:
     - master
 
-.build_ios_dev:
+build_ios_dev:
   when: manual
   stage: build
   allow_failure: false
@@ -184,7 +183,7 @@ test:
     paths:
       - ios/build/Runner.ipa
   tags:
-    - flutter_build
+    - vmo
   only:
     - /^bugfix/.*$/
     - /^feature/.*$/
