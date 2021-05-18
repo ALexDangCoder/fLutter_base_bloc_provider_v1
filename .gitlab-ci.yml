@@ -38,7 +38,7 @@ test:
 build_android_dev: #Job name
   stage: build # kind of job
   when: manual
-  allow_failure: false #Make to skip build step and deploy step
+  allow_failure: true #Make to skip build step and deploy step
   needs:
     - test
   <<: *mobileBeforeScript
