@@ -10,3 +10,4 @@ linter:
     prefer_single_quotes: false
     prefer_const_constructors: true
     unnecessary_final: false
+    avoid_print : true
