@@ -67,6 +67,7 @@ deploy_android_dev:
   image: node:latest
   stage: deploy
   when: manual
+  allow_failure: false
 
   needs:
     - build_android_dev
@@ -110,6 +111,7 @@ deploy_android_staging:
   image: node:latest
   stage: deploy
   when: manual
+  allow_failure: false
 
   needs:
     - build_android_staging
@@ -150,6 +152,7 @@ deploy_android_production:
   image: node:latest
   stage: deploy
   when: manual
+  allow_failure: false 
 
   needs:
     - build_android_production
