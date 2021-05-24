@@ -24,6 +24,7 @@ test:
   when: always
   tags:
     - vmo
+
   <<: *mobileBeforeScript
 
   script:
@@ -41,6 +42,7 @@ build_android_dev: #Job name
   allow_failure: false #Make to skip build step and deploy step
   needs:
     - test
+
   <<: *mobileBeforeScript
 
   script:
@@ -87,6 +89,7 @@ build_android_staging:
   allow_failure: false
   needs:
     - test
+
   <<: *mobileBeforeScript
 
   script:
@@ -124,9 +127,9 @@ build_android_production:
   stage: build
   when: manual
   allow_failure: false
-
   needs:
     - test
+
   <<: *mobileBeforeScript
 
   script:
@@ -166,6 +169,7 @@ build_ios_dev:
   allow_failure: false
   needs:
     - test
+
   <<: *mobileBeforeScript
 
   script:
