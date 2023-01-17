@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../presentation/home/ui/home_screen.dart';
+import '../../presentation/home/home_screen.dart';
 import '../../presentation/list_user/ui/list_user_screen.dart';
 import '../../presentation/login/ui/login_screen.dart';
 

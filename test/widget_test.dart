@@ -11,7 +11,7 @@ import 'package:get_it/get_it.dart';
 
 // Project imports:
 import 'package:clean_architechture/app/app.dart';
-import 'package:clean_architechture/presentation/home/ui/home_screen.dart';
+import 'package:clean_architechture/presentation/home/home_screen.dart';
 import 'utilities/test_utilitiy.dart';
 
 void main() {

@@ -1,15 +1,15 @@
 // Flutter imports:
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
-import '../../../app/app.dart';
-import '../../../app/multi-languages/multi_languages_utils.dart';
-import '../../../app/route/app_routing.dart';
+import '../../app/app.dart';
+import '../../app/multi-languages/multi_languages_utils.dart';
+import '../../app/route/app_routing.dart';
+import 'widgets/home_size_info.dart';
 
 // Project imports:
 
@@ -32,24 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            key: _keyRed,
-            width: 375.w,
-            height: 500.h,
-            decoration: const BoxDecoration(
-              border: Border.fromBorderSide(BorderSide(color: Colors.blue)),
-              color: Colors.red,
-            ),
-            child: Text(
-              "Screen Width : ${ScreenUtil().screenWidth}  Height : ${ScreenUtil().screenHeight}"
-              "\n$_containerSize "
-              "\nWidth Ratio : ${ScreenUtil().scaleWidth} "
-              "\nHeight Ratio : ${ScreenUtil().scaleHeight} "
-              "\nText Ratio : ${ScreenUtil().scaleText} "
-              "\n$defaultTargetPlatform",
-              style: TextStyleManager.label3,
-            ),
-          ),
+          HomeSizeInfo(containerSize: _containerSize),
           Text(
             "Aspect Ratio : ${ScreenUtil().pixelRatio}",
             style: TextStyleManager.label3,
