@@ -13,28 +13,19 @@ class BaseResponsiveWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 800;
-
-  static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 800 &&
-      MediaQuery.of(context).size.width < 1100;
-
-  static bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1100;
-
-  Widget _getCurrentWidget(BuildContext context) {
-    if (isMobile(context)) {
-      return mobile;
-    } else if (isTablet(context)) {
-      return tablet ?? mobile;
-    } else {
-      return desktop ?? mobile;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return _getCurrentWidget(context);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 800) {
+          return mobile;
+        }
+        if (constraints.maxWidth < 1100) {
+          return tablet ?? mobile;
+        }
+
+        return desktop ?? mobile;
+      },
+    );
   }
 }
