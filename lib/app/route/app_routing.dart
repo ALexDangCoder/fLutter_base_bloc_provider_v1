@@ -1,24 +1,18 @@
-part of app_layer;
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
-enum RouteDefine {
-  loginScreen,
-  homeScreen,
-  listUserScreen,
-}
+import '../../presentation/home/ui/home_screen.dart';
+import '../../presentation/list_user/ui/list_user_screen.dart';
+import '../../presentation/login/ui/login_screen.dart';
 
-class AppRouting {
-  static MaterialPageRoute generateRoute(RouteSettings settings) {
-    final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-      RouteDefine.loginScreen.name: (_) => LoginRoute.route,
-      RouteDefine.homeScreen.name: (_) => HomeRoute.route,
-      RouteDefine.listUserScreen.name: (_) => ListUserRoute.route,
-    };
+part 'app_routing.gr.dart';
 
-    final WidgetBuilder? routeBuilder = routes[settings.name];
-
-    return MaterialPageRoute(
-      builder: (BuildContext context) => routeBuilder!(context),
-      settings: RouteSettings(name: settings.name),
-    );
-  }
-}
+@MaterialAutoRouter(
+  replaceInRouteName: 'Screen,Route',
+  routes: [
+    AutoRoute(page: LoginScreen, initial: true),
+    AutoRoute(page: HomeScreen),
+    AutoRoute(page: ListUserScreen),
+  ],
+)
+class AppRouter extends _$AppRouter {}

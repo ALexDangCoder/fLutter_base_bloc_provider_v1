@@ -1,22 +1,22 @@
 // Flutter imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../app/app.dart';
 import '../../../app/managers/constant_manager.dart';
 
 // Project imports:
 
 class LoadingDialog {
-  static void get hideLoadingDialog {
-    if (_dialogIsVisible(NavigationUtil.currentContext!)) {
-      Navigator.of(NavigationUtil.currentContext!).pop();
+  static void hideLoadingDialog(BuildContext context) {
+    if (_dialogIsVisible(context)) {
+      context.router.pop();
     }
   }
 
   static bool _dialogIsVisible(BuildContext context) {
     bool isVisible = false;
-    Navigator.popUntil(context, (route) {
+    context.router.popUntil((route) {
       isVisible = route is PopupRoute;
 
       return !isVisible;
@@ -37,7 +37,7 @@ class LoadingDialog {
         ],
       ),
     );
-    if (!_dialogIsVisible(NavigationUtil.currentContext!)) {
+    if (!_dialogIsVisible(context)) {
       showDialog(
         barrierDismissible: false,
         context: context,

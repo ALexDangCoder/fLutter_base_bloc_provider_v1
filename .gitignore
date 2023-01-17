@@ -50,6 +50,7 @@ pubspec.lock
 # Ignore on project
 /lib/generated/
 *.g.dart
+*.gr.dart
 /lib/gen/
 coverage/lcov.info
 /ios/build

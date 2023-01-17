@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // Project imports:
 import '../../../app/app.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
+import '../../../app/route/app_routing.dart';
 
 // Project imports:
 
@@ -79,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           OutlinedButton(
             onPressed: () {
-              Navigator.pushNamed(context, RouteDefine.listUserScreen.name);
+              context.router.push(const ListUserRoute());
             },
             child: Text(
               "Move To List User Screen",

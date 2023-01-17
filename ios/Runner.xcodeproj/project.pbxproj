@@ -405,7 +405,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp.dev;
 				PRODUCT_FLAVOR = dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "C3 Flutter Temp - Dev";
@@ -493,7 +493,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp.stg;
 				PRODUCT_FLAVOR = staging;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "C3 Flutter Temp - Dev";
@@ -665,7 +665,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp.dev;
 				PRODUCT_FLAVOR = dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "C3 Flutter Temp - AdHoc";
@@ -748,7 +748,7 @@
 					"@executable_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vmo.c3FlutterTemp.stg;
 				PRODUCT_FLAVOR = staging;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "C3 Flutter Temp - AppStore";

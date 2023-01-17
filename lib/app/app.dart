@@ -19,9 +19,6 @@ import '../domain/login/repositories/login_repository.dart';
 import '../firebase/firebase_options.dart' as prod;
 import '../firebase/firebase_options_dev.dart' as dev;
 import '../firebase/firebase_options_staging.dart' as staging;
-import '../presentation/home/home_route.dart';
-import '../presentation/list_user/list_user_route.dart';
-import '../presentation/login/login_route.dart';
 
 part 'core/enum.dart';
 part 'di/injection.dart';
@@ -29,6 +26,4 @@ part 'managers/theme_manager.dart';
 part 'managers/color_manager.dart';
 part 'managers/style_manager.dart';
 part 'managers/config_manager.dart';
-part 'route/app_routing.dart';
 part 'utils/session_utils.dart';
-part 'utils/navigation_util.dart';

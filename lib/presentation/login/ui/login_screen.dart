@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 // Flutter imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -11,17 +12,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app/app.dart';
 import '../../../app/managers/constant_manager.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
+import '../../../app/route/app_routing.dart';
+import '../../../domain/login/repositories/login_repository.dart';
+import '../../../domain/login/usecases/login_usecase.dart';
 import '../../../gen/assets.gen.dart';
 import '../../common/dialog/loading_dialog.dart';
 import '../bloc/login_bloc.dart';
 
 // Project imports:
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget with AutoRouteWrapper {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginBloc(LoginUseCase(getIt<LoginRepository>())),
+      child: this,
+    );
+  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -32,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         switch (state.runtimeType) {
           case LoginSuccessState:
             LoadingDialog.hideLoadingDialog;
-            Navigator.pushNamed(context, RouteDefine.homeScreen.name);
+            context.router.push(const HomeRoute());
             break;
           case LoginErrorState:
             LoadingDialog.hideLoadingDialog;

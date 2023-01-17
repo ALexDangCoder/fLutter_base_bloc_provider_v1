@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
 import 'app/app.dart';
+import 'app/route/app_routing.dart';
 
 void main() async {
   await _beforeRunApp();
@@ -64,6 +65,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var appTheme = getIt<ThemeManager>();
+  final _appRouter = AppRouter();
 
   @override
   void initState() {
@@ -83,16 +85,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(400, 800),
-      builder: (_, __) => MaterialApp(
+      builder: (_, __) => MaterialApp.router(
         builder: (context, child) {
           return child ?? const SizedBox();
         },
         title: 'Flutter Template',
-        navigatorObservers: <NavigatorObserver>[MyApp.observer],
-        navigatorKey: NavigationUtil.rootKey,
+        routerDelegate: _appRouter.delegate(
+          navigatorObservers: () => [MyApp.observer],
+        ),
+        routeInformationParser: _appRouter.defaultRouteParser(),
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteDefine.loginScreen.name,
-        onGenerateRoute: AppRouting.generateRoute,
         theme: ThemeManager.lightTheme,
         darkTheme: ThemeManager.darkTheme,
         themeMode: appTheme.currentTheme,

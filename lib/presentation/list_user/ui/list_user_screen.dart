@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -11,12 +12,20 @@ import '../bloc/list_user_bloc.dart';
 
 // Project imports:
 
-class ListUserScreen extends StatefulWidget {
+class ListUserScreen extends StatefulWidget with AutoRouteWrapper {
   const ListUserScreen({Key? key}) : super(key: key);
 
   @override
   _ListUserScreenState createState() {
     return _ListUserScreenState();
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ListUserBloc()..add(GetListUser()),
+      child: this,
+    );
   }
 }
 
