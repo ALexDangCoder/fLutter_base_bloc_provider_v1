@@ -16,7 +16,7 @@ import '../../../app/route/app_routing.dart';
 import '../../../domain/login/repositories/login_repository.dart';
 import '../../../domain/login/usecases/login_usecase.dart';
 import '../../../gen/assets.gen.dart';
-import '../../common/dialog/loading_dialog.dart';
+import '../../core/dialog/loading_dialog.dart';
 import '../bloc/login_bloc.dart';
 
 // Project imports:
