@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../app/app.dart';
-import '../bloc/list_user_bloc.dart';
+import '../../../application/list_user_bloc/list_user_bloc.dart';
 
 class ListUserContent extends StatefulWidget {
   const ListUserContent({super.key});
@@ -26,38 +26,46 @@ class _ListUserContentState extends State<ListUserContent> {
   Widget build(BuildContext context) {
     return BlocConsumer<ListUserBloc, ListUserState>(
       listener: (context, state) {
-        switch (state.runtimeType) {
-          case LoadingListUser:
-            break;
-          case ShowListUser:
+        state.when(
+          initial: () {},
+          showListUser: (_) {
             _refreshController.refreshCompleted();
             _refreshController.loadComplete();
-            break;
-        }
+          },
+          loadingListUser: () {},
+        );
       },
-      buildWhen: (_, current) => current is ShowListUser,
+      buildWhen: (_, current) => current.maybeWhen(
+        showListUser: (_) => true,
+        orElse: () => false,
+      ),
       builder: (context, state) {
-        if (state is ShowListUser) {
-          return SmartRefresher(
-            controller: _refreshController,
-            enablePullDown: true,
-            enablePullUp: true,
-            onRefresh: () => context.read<ListUserBloc>().add(GetListUser()),
-            onLoading: () => context.read<ListUserBloc>().add(LoadMoreUser()),
-            child: ListView.separated(
-              itemBuilder: (context, index) => Center(
-                child: Text(
-                  "User $index",
-                  style: TextStyleManager.label3,
+        return state.maybeWhen(
+          showListUser: (listUser) {
+            return SmartRefresher(
+              controller: _refreshController,
+              enablePullDown: true,
+              enablePullUp: true,
+              onRefresh: () => context
+                  .read<ListUserBloc>()
+                  .add(const ListUserEvent.getListUser()),
+              onLoading: () => context
+                  .read<ListUserBloc>()
+                  .add(const ListUserEvent.loadMoreUser()),
+              child: ListView.separated(
+                itemBuilder: (context, index) => Center(
+                  child: Text(
+                    "User $index",
+                    style: TextStyleManager.label3,
+                  ),
                 ),
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: listUser.length,
               ),
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: state.listUser.length,
-            ),
-          );
-        }
-
-        return Container();
+            );
+          },
+          orElse: () => const SizedBox(),
+        );
       },
     );
   }

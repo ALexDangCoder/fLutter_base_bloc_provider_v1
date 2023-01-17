@@ -51,6 +51,7 @@ pubspec.lock
 /lib/generated/
 *.g.dart
 *.gr.dart
+*.freezed.dart
 /lib/gen/
 coverage/lcov.info
 /ios/build

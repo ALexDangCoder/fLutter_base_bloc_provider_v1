@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import '../../app/app.dart';
-import 'bloc/list_user_bloc.dart';
+import '../../application/list_user_bloc/list_user_bloc.dart';
 import 'widgets/list_user_content.dart';
 
 // Project imports:
@@ -18,7 +18,8 @@ class ListUserScreen extends StatelessWidget with AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => ListUserBloc()..add(GetListUser()),
+      create: (context) =>
+          ListUserBloc()..add(const ListUserEvent.getListUser()),
       child: this,
     );
   }
