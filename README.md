@@ -139,7 +139,7 @@ project
 |   |   |--di                                        # dependencies injection registration for project
 |   |   |--manager                                   # manager folder include style manager, other resource manager
 |   |   |--multi-languages                           # localization for project, using easy_localization and google sheet generator csv
-|   |   |--route                                     # route config for project, include generateRoute and route define all screen of project
+|   |   |--route                                     # route config for project, generate by auto_route_generator with route definitions
 |   |   |--utils                                     # utils for application layer
 |   |   |--app.dart                                  # library app_layer using for import and combine most of application layer files
 |   |--data                                          # data layer for clean architecture 
@@ -169,7 +169,6 @@ project
 |   |   |   |--ui                                    # ui folder for login feature
 |   |   |   |   |--login_screen.dart                 # login ui frame
 |   |   |   |   |--widgets                           # widgets folder for nested widget in login feature
-|   |   |   |--login_route.dart                      # login route class define BlocProvider for Bloc class of login feature
 |   |--main.dart                                     # main config Material App and runApp
 |--scripts                                           # folder contain scripts file make easier to combine command 
 |--test                                              # unit test
@@ -301,6 +300,35 @@ generator using build_runner and remove conflict file :
 
 ```
 flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### AutoRoute usage
+
+- Define routes in app_routing.dart
+- Generate routes after modifying with:
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+- If Provider/MultiProviders is needed for a route, add `with AutoRouteWrapper`
+  after StatelessWidget/StatefulWidget and override wrappedRoute. Example:
+
+```
+class LoginScreen extends StatefulWidget with AutoRouteWrapper {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginBloc(LoginUseCase(getIt<LoginRepository>())),
+      child: this,
+    );
+  }
+}
 ```
 
 ### Dio Interceptor
