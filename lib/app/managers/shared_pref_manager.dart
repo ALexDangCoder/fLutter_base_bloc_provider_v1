@@ -1,10 +1,12 @@
 // Package imports:
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum SharedPreferenceKey {
   keyAccessToken,
 }
 
+@lazySingleton
 class SharedPreferencesManager {
   static SharedPreferencesManager? _instance;
   static SharedPreferences? _sharedPreferences;

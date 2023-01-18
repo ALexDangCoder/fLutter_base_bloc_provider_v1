@@ -11,7 +11,7 @@ class ListUserBloc extends Bloc<ListUserEvent, ListUserState> {
 
   ListUserBloc() : super(const _Initial()) {
     on<ListUserEvent>((event, emit) async {
-      event.when(
+      await event.when(
         loadMoreUser: () async {
           await _mapLoadMoreListUserToState(emit);
         },

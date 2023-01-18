@@ -9,6 +9,7 @@ analyzer:
     - lib/utils/multi-languages/*.dart
     - lib/gen/*.dart
     - lib/**/*.freezed.dart
+    - lib/**/*.config.dart
 
 linter:
   rules:

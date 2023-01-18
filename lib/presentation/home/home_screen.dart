@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
 import '../../app/app.dart';
+import '../../app/di/injection.dart';
 import '../../app/multi-languages/multi_languages_utils.dart';
 import '../../app/route/app_routing.dart';
 import 'widgets/home_size_info.dart';

@@ -1,11 +1,14 @@
 // Project imports:
 
 // Project imports:
+import 'package:injectable/injectable.dart';
+
 import '../../../domain/login/repositories/login_repository.dart';
 import '../api/login_api.dart';
 import '../models/request/login_request.dart';
 import '../models/response/login_response.dart';
 
+@LazySingleton(as: LoginRepository)
 class LoginRepositoryImpl implements LoginRepository {
   final LoginApi api;
 

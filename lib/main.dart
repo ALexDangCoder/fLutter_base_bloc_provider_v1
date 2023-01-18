@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
 import 'app/app.dart';
+import 'app/di/injection.dart';
 import 'app/route/app_routing.dart';
 
 void main() async {

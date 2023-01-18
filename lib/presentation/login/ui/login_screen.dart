@@ -10,14 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import '../../../app/app.dart';
+import '../../../app/di/injection.dart';
 import '../../../app/managers/constant_manager.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
 import '../../../app/route/app_routing.dart';
+import '../../../application/login_bloc/login_bloc.dart';
 import '../../../domain/login/repositories/login_repository.dart';
 import '../../../domain/login/usecases/login_usecase.dart';
 import '../../../gen/assets.gen.dart';
 import '../../core/dialog/loading_dialog.dart';
-import '../bloc/login_bloc.dart';
 
 // Project imports:
 

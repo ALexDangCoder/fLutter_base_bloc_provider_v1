@@ -1,5 +1,6 @@
 part of app_layer;
 
+@lazySingleton
 class ThemeManager with ChangeNotifier {
   static bool _isDarkTheme = false;
 

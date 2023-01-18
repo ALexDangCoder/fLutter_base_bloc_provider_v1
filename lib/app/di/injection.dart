@@ -1,20 +1,18 @@
-part of app_layer;
+import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-GetIt getIt = GetIt.instance;
+import '../../data/login/api/login_api.dart';
+import '../app.dart';
+import 'injection.config.dart';
 
-Future setupInjection() async {
-  await _registerAppComponents();
+final getIt = GetIt.instance;
+
+@injectableInit
+Future<void> setupInjection() async {
+  getIt.init();
   await _registerNetworkComponents();
-  _registerRepository();
-}
-
-Future _registerAppComponents() async {
-  final SharedPreferencesManager? sharePreferences =
-      await SharedPreferencesManager.getInstance();
-  getIt.registerSingleton<SharedPreferencesManager>(sharePreferences!);
-
-  final appTheme = ThemeManager();
-  getIt.registerLazySingleton(() => appTheme);
 }
 
 Future<void> _registerNetworkComponents() async {
@@ -35,15 +33,9 @@ Future<void> _registerNetworkComponents() async {
       ),
     ],
   );
-  getIt.registerSingleton(dio);
+  getIt.registerLazySingleton(() => dio);
 
   getIt.registerLazySingleton(
-    (() => LoginApi(dio, baseUrl: '${dio.options.baseUrl}user/')),
-  );
-}
-
-void _registerRepository() {
-  getIt.registerLazySingleton<LoginRepository>(
-    () => LoginRepositoryImpl(getIt<LoginApi>()),
+    () => LoginApi(dio, baseUrl: '${dio.options.baseUrl}user/'),
   );
 }
