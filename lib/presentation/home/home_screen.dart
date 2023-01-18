@@ -1,15 +1,17 @@
 // Flutter imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
-import '../../app/app.dart';
-import '../../app/di/injection.dart';
-import '../../app/multi-languages/multi_languages_utils.dart';
-import '../../app/route/app_routing.dart';
+import '../../domain/core/locale_keys.dart';
+import '../../domain/core/style_manager.dart';
+import '../../domain/core/theme_manager.dart';
+import '../../injection.dart';
+import '../../route/app_routing.dart';
 import 'widgets/home_size_info.dart';
 
 // Project imports:

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../app/app.dart';
-import '../../application/list_user_bloc/list_user_bloc.dart';
+import '../../application/list_user/list_user_bloc.dart';
+import '../../domain/core/style_manager.dart';
 import 'widgets/list_user_content.dart';
 
 // Project imports:

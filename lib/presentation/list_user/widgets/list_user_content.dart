@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../app/app.dart';
-import '../../../application/list_user_bloc/list_user_bloc.dart';
+import '../../../application/list_user/list_user_bloc.dart';
+import '../../../domain/core/style_manager.dart';
 
 class ListUserContent extends StatefulWidget {
   const ListUserContent({super.key});

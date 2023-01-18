@@ -6,11 +6,11 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 // Package imports:
+import 'package:clean_architechture/domain/core/theme_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
-import 'package:clean_architechture/app/app.dart';
 import 'package:clean_architechture/presentation/home/home_screen.dart';
 import 'utilities/test_utilitiy.dart';
 

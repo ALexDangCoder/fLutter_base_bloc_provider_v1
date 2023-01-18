@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../app/app.dart';
+import '../../../domain/core/style_manager.dart';
 
 class HomeSizeInfo extends StatefulWidget {
   const HomeSizeInfo({

@@ -3,22 +3,19 @@ import 'dart:developer';
 
 // Flutter imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import '../../app/app.dart';
-import '../../app/di/injection.dart';
-import '../../app/managers/constant_manager.dart';
-import '../../app/multi-languages/multi_languages_utils.dart';
-import '../../app/route/app_routing.dart';
-import '../../application/login_bloc/login_bloc.dart';
-import '../../domain/login/repositories/login_repository.dart';
-import '../../domain/login/usecases/login_usecase.dart';
+import '../../application/auth/auth_bloc.dart';
+import '../../domain/auth/value_objects.dart';
+import '../../domain/core/constant_manager.dart';
+import '../../domain/core/style_manager.dart';
 import '../../gen/assets.gen.dart';
-import '../core/dialog/loading_dialog.dart';
+import '../../injection.dart';
 import 'widgets/login_screen_info.dart';
 
 // Project imports:
@@ -32,7 +29,7 @@ class LoginScreen extends StatefulWidget with AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(LoginUseCase(getIt<LoginRepository>())),
+      create: (context) => getIt<AuthBloc>(),
       child: this,
     );
   }
@@ -41,20 +38,21 @@ class LoginScreen extends StatefulWidget with AutoRouteWrapper {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginBloc, LoginState>(
-      listener: (BuildContext context, LoginState state) {
-        switch (state.runtimeType) {
-          case LoginSuccessState:
-            LoadingDialog.hideLoadingDialog;
-            context.router.push(const HomeRoute());
-            break;
-          case LoginErrorState:
-            LoadingDialog.hideLoadingDialog;
-            break;
-          case LoginLoadingState:
-            LoadingDialog.showLoadingDialog(context);
-            break;
-        }
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        // state.when;
+        // switch (state.runtimeType) {
+        //   case LoginSuccessState:
+        //     LoadingDialog.hideLoadingDialog;
+        //     context.router.push(const HomeRoute());
+        //     break;
+        //   case LoginErrorState:
+        //     LoadingDialog.hideLoadingDialog;
+        //     break;
+        //   case LoginLoadingState:
+        //     LoadingDialog.showLoadingDialog(context);
+        //     break;
+        // }
       },
       builder: (context, state) {
         return Scaffold(
@@ -64,8 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
               const LoginScreenInfo(),
               MaterialButton(
                 onPressed: () {
-                  context.read<LoginBloc>().add(
-                        const LoginPressed("userName", "password", false),
+                  context.read<AuthBloc>().add(
+                        AuthEvent.login(
+                          emailAddress: EmailAddress("userName@gmail.com"),
+                          password: Password("password"),
+                        ),
                       );
                 },
                 color: Colors.green,
@@ -78,11 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: SizeManager.s10),
               MaterialButton(
                 onPressed: () {
-                  context.read<LoginBloc>().add(
-                        const LoginPressed(
-                          "userName",
-                          "password",
-                          true,
+                  context.read<AuthBloc>().add(
+                        AuthEvent.login(
+                          emailAddress: EmailAddress("userName"),
+                          password: Password("password"),
                         ),
                       );
                 },

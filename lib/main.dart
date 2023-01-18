@@ -14,9 +14,10 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Project imports:
-import 'app/app.dart';
-import 'app/di/injection.dart';
-import 'app/route/app_routing.dart';
+import 'domain/core/config_manager.dart';
+import 'domain/core/theme_manager.dart';
+import 'injection.dart';
+import 'route/app_routing.dart';
 
 void main() async {
   await _beforeRunApp();

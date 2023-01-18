@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../app/managers/constant_manager.dart';
+import '../../../domain/core/constant_manager.dart';
 
 // Project imports:
 
