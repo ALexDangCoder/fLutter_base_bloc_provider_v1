@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/home/home_screen.dart';
 import '../../presentation/list_user/list_user_screen.dart';
-import '../../presentation/login/ui/login_screen.dart';
+import '../../presentation/login/login_screen.dart';
 
 part 'app_routing.gr.dart';
 
