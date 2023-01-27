@@ -30,7 +30,21 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsetsGeometry padding;
+    late final double? width;
+    switch (appButtonLength) {
+      case AppButtonLength.long:
+        width = double.infinity;
+        break;
+      case AppButtonLength.short:
+        width = 160.w;
+        break;
+      case AppButtonLength.mini:
+        width = null;
+        break;
+    }
+    final padding = appButtonType == AppButtonType.text
+        ? EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h)
+        : EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h);
     final backgroundColor = appButtonType == AppButtonType.primary
         ? isActive
             ? ColorsManager.raspberry100
@@ -51,31 +65,19 @@ class AppButton extends StatelessWidget {
           )
         : TextStyleManager.paragraph.copyWith(color: textColor);
 
-    if (appButtonType == AppButtonType.text) {
-      padding = EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h);
-    } else {
-      switch (appButtonLength) {
-        case AppButtonLength.long:
-          padding = EdgeInsets.symmetric(horizontal: 123.w, vertical: 8.h);
-          break;
-        case AppButtonLength.short:
-          padding = EdgeInsets.symmetric(horizontal: 35.w, vertical: 8.h);
-          break;
-        case AppButtonLength.mini:
-          padding = EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h);
-          break;
-      }
-    }
-
-    return TextButton(
-      onPressed: isActive ? onTap : null,
-      style: TextButton.styleFrom(
-        padding: padding,
-        backgroundColor: backgroundColor,
-        side: border,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+    return SizedBox(
+      width: width,
+      child: TextButton(
+        onPressed: isActive ? onTap : null,
+        style: TextButton.styleFrom(
+          padding: padding,
+          backgroundColor: backgroundColor,
+          side: border,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        ),
+        child: Text(text, style: textStyle),
       ),
-      child: Text(text, style: textStyle),
     );
   }
 }
