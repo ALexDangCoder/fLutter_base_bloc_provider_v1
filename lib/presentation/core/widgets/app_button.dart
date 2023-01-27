@@ -50,9 +50,9 @@ class AppButton extends StatelessWidget {
             ? ColorsManager.raspberry100
             : ColorsManager.divider
         : ColorsManager.white;
-    final border = appButtonType == AppButtonType.secondary
-        ? const BorderSide(color: ColorsManager.raspberry100)
-        : null;
+    final borderColor = appButtonType == AppButtonType.secondary
+        ? ColorsManager.raspberry100
+        : ColorsManager.white;
     final textColor = appButtonType == AppButtonType.primary
         ? isActive
             ? ColorsManager.white
@@ -65,16 +65,15 @@ class AppButton extends StatelessWidget {
           )
         : TextStyleManager.paragraph.copyWith(color: textColor);
 
-    return SizedBox(
-      width: width,
-      child: TextButton(
-        onPressed: isActive ? onTap : null,
-        style: TextButton.styleFrom(
-          padding: padding,
-          backgroundColor: backgroundColor,
-          side: border,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        padding: padding,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(color: borderColor),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: Text(text, style: textStyle),
       ),
