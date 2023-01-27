@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import '../../application/auth/auth_bloc.dart';
 import '../../domain/auth/value_objects.dart';
-import '../../domain/core/constant_manager.dart';
 import '../../domain/core/style_manager.dart';
 import '../../gen/assets.gen.dart';
 import '../../injection.dart';
@@ -70,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                 },
                 color: Colors.green,
-                padding: EdgeInsets.all(PaddingManager.p8),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   "Login",
                   style: TextStyleManager.h1,
                 ),
               ),
-              SizedBox(height: SizeManager.s10),
+              const SizedBox(height: 10),
               MaterialButton(
                 onPressed: () {
                   context.read<AuthBloc>().add(
@@ -87,13 +86,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                 },
                 color: Colors.red,
-                padding: EdgeInsets.all(PaddingManager.p8),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   "Login Error",
                   style: TextStyleManager.h1,
                 ),
               ),
-              SizedBox(height: SizeManager.s10),
+              const SizedBox(height: 10),
               MaterialButton(
                 onPressed: () async {
                   context.setLocale(const Locale("vi", "VN"));
@@ -101,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {});
                 },
                 color: Colors.blue,
-                padding: EdgeInsets.all(PaddingManager.p8),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   "Change Locale to Viet Nam",
                   textAlign: TextAlign.center,

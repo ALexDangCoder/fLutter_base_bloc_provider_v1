@@ -3,7 +3,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../domain/core/constant_manager.dart';
 
 // Project imports:
 
@@ -31,7 +30,7 @@ class LoadingDialog {
         children: [
           const CircularProgressIndicator(),
           Container(
-            margin: EdgeInsets.only(left: PaddingManager.p16),
+            margin: const EdgeInsets.only(left: 16),
             child: const Text("Loading..."),
           ),
         ],
