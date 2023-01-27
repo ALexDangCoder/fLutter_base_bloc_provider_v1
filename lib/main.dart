@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
       textHeightBehavior: const TextHeightBehavior(
         applyHeightToFirstAscent: false,
         applyHeightToLastDescent: false,
+        leadingDistribution: TextLeadingDistribution.even,
       ),
       child: ScreenUtilInit(
         designSize: const Size(390, 844),
