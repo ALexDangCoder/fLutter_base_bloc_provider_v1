@@ -87,8 +87,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return DefaultTextHeightBehavior(
       textHeightBehavior: const TextHeightBehavior(
-        applyHeightToFirstAscent: false,
-        applyHeightToLastDescent: false,
         leadingDistribution: TextLeadingDistribution.even,
       ),
       child: ScreenUtilInit(
