@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'color_manager.dart';
+
 class TextStyleManager {
   static TextStyle get h1 {
     return TextStyle(
@@ -63,6 +65,14 @@ class TextStyleManager {
       fontSize: 12.sp,
       height: 18.h / 12.sp,
       fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle get textfieldError {
+    return TextStyle(
+      fontSize: 12.sp,
+      height: 16.34.h / 12.sp,
+      color: ColorsManager.error100,
     );
   }
 }
