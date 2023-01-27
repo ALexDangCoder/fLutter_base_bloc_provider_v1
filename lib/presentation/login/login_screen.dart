@@ -15,6 +15,7 @@ import '../../domain/auth/value_objects.dart';
 import '../../domain/core/style_manager.dart';
 import '../../gen/assets.gen.dart';
 import '../../injection.dart';
+import '../test_component/test_component.dart';
 import 'widgets/login_screen_info.dart';
 
 // Project imports:
@@ -107,7 +108,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyleManager.h1,
                 ),
               ),
-              Assets.images.cashIcon1.svg(),
+              // Assets.images.cashIcon1.svg(),
+              // TODO: Hard code remove while commit
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                // Within the `FirstRoute` widget
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TestComponent(),
+                    ),
+                  );
+                },
+                child: Assets.images.accountSettings.svg(),
+              ),
             ],
           ),
         );
