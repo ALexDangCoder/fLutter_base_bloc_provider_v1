@@ -1,0 +1,294 @@
+stages:
+  - flutter_setup
+  - code_quality_report
+  - code_analyze_check
+  - build
+  - deploy
+
+.before_script_template: &mobileBeforeScript
+  before_script:
+    - sh .setup_app.sh
+    - flutter pub global activate pubspec_version
+    - FLUTTER_VERSION=`flutter pub global run pubspec_version:pubver get`
+    - export BUILD_VERSION=$(echo $FLUTTER_VERSION | cut -d "+" -f1)
+    - export BUILD_NUMBER=$(echo $FLUTTER_VERSION | cut -d "+" -f2)
+    - echo Build Version $BUILD_VERSION
+    - echo Build Number $BUILD_NUMBER
+
+.android_dev_template: &diawi_android_dev
+  script:
+    - export BUILD_FLAVOR="Dev"
+    - export BUILD_FLAVOR_KEY="dev"
+    - sh scripts/.setup_gitlab_env_fastlane.sh $BUILD_FLAVOR_KEY
+    - sh scripts/.setup_fastlane.sh
+    - sh scripts/.setup_env_gradle.sh
+    - bundle exec fastlane buildAndroid --env $BUILD_FLAVOR_KEY
+
+.ios_dev_template: &diawi_ios_dev
+  script:
+    - export BUILD_FLAVOR="Dev"
+    - export BUILD_FLAVOR_KEY="dev"
+    - sh scripts/.setup_gitlab_env_fastlane.sh $BUILD_FLAVOR_KEY
+    - sh scripts/.setup_fastlane.sh
+    - sh scripts/.setup_ios_precache.sh
+    - sh scripts/.setup_credential_cicd.sh
+    - bundle exec fastlane ios buildIOS --env $BUILD_FLAVOR_KEY --verbose
+
+flutter_setup:
+  stage: flutter_setup
+  script:
+    - brew tap leoafarias/fvm
+    - brew install fvm
+    - echo Y | fvm global 3.3.10
+    - fvm flutter pub get
+    - fvm flutter doctor -v
+    
+  tags:
+    - swat-runner
+
+code_quality_report:
+  stage: code_quality_report
+  needs: [ flutter_setup ]
+  image: dart
+  before_script:
+    - dart pub global activate dart_code_metrics
+  script:
+    - dart pub global run dart_code_metrics:metrics analyze --fatal-style --fatal-performance --fatal-warnings --reporter=gitlab lib > code-quality-report.json
+  artifacts:
+    reports:
+      codequality: code-quality-report.json
+
+  tags:
+    - swat-runner
+
+code_analyze_check:
+  stage: code_analyze_check
+  needs: [ code_quality_report ]
+  tags:
+    - swat-runner
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  script:
+    - sh scripts/.code_analyze.sh
+  artifacts:
+    reports:
+      codequality: code-quality-report.json
+
+diawi_android_dev: #Job name
+  stage: build # kind of job
+  when: manual
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  <<: *diawi_android_dev
+
+  tags:
+    - swat-runner
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^update/.*$/
+    - /^improve/.*$/
+
+
+auto_diawi_android_dev: #Job name
+  stage: build # kind of job
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  <<: *diawi_android_dev
+
+  tags:
+    - swat-runner
+  only:
+    - develop
+
+diawi_android_staging: #Job name
+  stage: build # kind of job
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  script:
+    - export BUILD_FLAVOR="Staging"
+    - export BUILD_FLAVOR_KEY="staging"
+    - sh scripts/.setup_gitlab_env_fastlane.sh $BUILD_FLAVOR_KEY
+    - sh scripts/.setup_fastlane.sh
+    - sh scripts/.setup_env_gradle.sh
+    - bundle exec fastlane buildAndroid --env $BUILD_FLAVOR_KEY
+
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-staging-release.apk
+  tags:
+    - swat-runner
+  only:
+    - /^release/.*$/
+
+firebase_android_staging:
+  stage: deploy
+  when: manual
+  needs: [ diawi_android_staging ]
+  dependencies:
+    - diawi_android_staging
+  script:
+    - export BUILD_FLAVOR_KEY="staging"
+    - sh scripts/.setup_fastlane.sh
+    - sh scripts/.setup_credential_cicd.sh
+    - bundle exec fastlane distribute --env $BUILD_FLAVOR_KEY
+  tags:
+    - swat-runner
+  only:
+    - /^release/.*$/
+
+diawi_ios_dev: #Job name
+  stage: build # kind of job
+  when: manual
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  <<: *diawi_ios_dev
+
+
+  tags:
+    - swat-runner
+  only:
+    - /^bugfix/.*$/
+    - /^feature/.*$/
+    - /^update/.*$/
+    - /^improve/.*$/
+
+auto_diawi_ios_dev: #Job name
+  stage: build # kind of job
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  <<: *diawi_ios_dev
+
+
+  tags:
+    - swat-runner
+  only:
+    - develop
+    
+testflight_staging: #Job name
+  stage: build # kind of job
+  allow_failure: true #Make to skip build step and deploy step
+  needs: [ code_analyze_check ]
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}_pub-cache
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+    - key: ${CI_COMMIT_REF_SLUG}_generate-files
+      paths:
+        - $CI_PROJECT_DIR/lib/**/*.g.dart
+    - key: ${CI_COMMIT_REF_SLUG}_gen
+      paths:
+        - $CI_PROJECT_DIR/lib/gen/
+    - key: ${CI_COMMIT_REF_SLUG}_localization
+      paths:
+        - $CI_PROJECT_DIR/resources/
+
+  <<: *mobileBeforeScript
+
+  script:
+    - export BUILD_FLAVOR="Staging"
+    - export BUILD_FLAVOR_KEY="staging"
+    - sh scripts/.setup_gitlab_env_fastlane.sh $BUILD_FLAVOR_KEY
+    - sh scripts/.setup_fastlane.sh
+    - sh scripts/.setup_ios_precache.sh
+    - sh scripts/.setup_credential_cicd.sh
+    - bundle exec fastlane ios testFlightDistribute --env $BUILD_FLAVOR_KEY --verbose
+
+  tags:
+    - swat-runner
+  only:
+    - /^release/.*$/
