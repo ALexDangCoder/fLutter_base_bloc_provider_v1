@@ -85,24 +85,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(400, 800),
-      builder: (_, __) => MaterialApp.router(
-        builder: (context, child) {
-          return child ?? const SizedBox();
-        },
-        title: 'Flutter Template',
-        routerDelegate: _appRouter.delegate(
-          navigatorObservers: () => [MyApp.observer],
+    return DefaultTextHeightBehavior(
+      textHeightBehavior: const TextHeightBehavior(
+        applyHeightToFirstAscent: false,
+        applyHeightToLastDescent: false,
+      ),
+      child: ScreenUtilInit(
+        designSize: const Size(390, 844),
+        builder: (_, __) => MaterialApp.router(
+          builder: (context, child) {
+            return child ?? const SizedBox();
+          },
+          title: 'Flutter Template',
+          routerDelegate: _appRouter.delegate(
+            navigatorObservers: () => [MyApp.observer],
+          ),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeManager.lightTheme,
+          darkTheme: ThemeManager.darkTheme,
+          themeMode: appTheme.currentTheme,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
         ),
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeManager.lightTheme,
-        darkTheme: ThemeManager.darkTheme,
-        themeMode: appTheme.currentTheme,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
       ),
     );
   }
