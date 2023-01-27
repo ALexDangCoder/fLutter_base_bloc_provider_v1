@@ -1,51 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'color_manager.dart';
-
 class TextStyleManager {
-  static TextStyle get label1 {
-    return TextStyle(
-      fontSize: 40.sp,
-    );
-  }
-
-  static TextStyle get label2 {
-    return TextStyle(
-      fontSize: 36.sp,
-    );
-  }
-
-  static TextStyle get label3 {
-    return TextStyle(
-      fontSize: 30.sp,
-      fontWeight: FontWeight.w200,
-    );
-  }
-
-  static TextStyle get label4 {
+  static TextStyle get h1 {
     return TextStyle(
       fontSize: 24.sp,
-      fontWeight: FontWeight.w200,
+      height: 36.h / 24.sp,
+      fontWeight: FontWeight.w800,
     );
   }
 
-  static TextStyle get label5 {
-    return TextStyle(
-      fontSize: 18.sp,
-    );
-  }
-
-  static TextStyle get label6 {
-    return TextStyle(
-      fontSize: 16.sp,
-    );
-  }
-
-  static TextStyle get buttonLabel {
+  static TextStyle get h2 {
     return TextStyle(
       fontSize: 20.sp,
-      color: ColorsManager.blue,
+      height: 30.h / 20.sp,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle get h3 {
+    return TextStyle(
+      fontSize: 18.sp,
+      height: 27.h / 18.sp,
+      fontWeight: FontWeight.w300,
+    );
+  }
+
+  static TextStyle get title {
+    return TextStyle(
+      fontSize: 18.sp,
+      height: 24.h / 18.sp,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+  static TextStyle get subtitle {
+    return TextStyle(
+      fontSize: 16.sp,
+      height: 24.h / 16.sp,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+  static TextStyle get paragraph {
+    return TextStyle(
+      fontSize: 16.sp,
+      height: 24.h / 16.sp,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle get description {
+    return TextStyle(
+      fontSize: 14.sp,
+      height: 19.h / 14.sp,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle get fineText {
+    return TextStyle(
+      fontSize: 12.sp,
+      height: 18.h / 12.sp,
+      fontWeight: FontWeight.w700,
     );
   }
 }

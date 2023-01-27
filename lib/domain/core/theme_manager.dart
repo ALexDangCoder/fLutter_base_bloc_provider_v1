@@ -20,6 +20,7 @@ class ThemeManager with ChangeNotifier {
       backgroundColor: ColorsManager.white,
       scaffoldBackgroundColor: ColorsManager.white,
       brightness: Brightness.light,
+      fontFamily: 'NotoSans',
     );
   }
 
@@ -29,6 +30,7 @@ class ThemeManager with ChangeNotifier {
       backgroundColor: ColorsManager.black,
       scaffoldBackgroundColor: ColorsManager.black,
       brightness: Brightness.dark,
+      fontFamily: 'NotoSans',
     );
   }
 }

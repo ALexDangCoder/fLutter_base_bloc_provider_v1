@@ -36,7 +36,7 @@ class _HomeSizeInfoState extends State<HomeSizeInfo> {
         "\nHeight Ratio : ${ScreenUtil().scaleHeight} "
         "\nText Ratio : ${ScreenUtil().scaleText} "
         "\n$defaultTargetPlatform",
-        style: TextStyleManager.label3,
+        style: TextStyleManager.h1,
       ),
     );
   }

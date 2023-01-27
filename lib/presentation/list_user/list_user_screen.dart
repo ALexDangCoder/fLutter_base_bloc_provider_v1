@@ -31,7 +31,7 @@ class ListUserScreen extends StatelessWidget with AutoRouteWrapper {
       appBar: AppBar(
         title: Text(
           "List User",
-          style: TextStyleManager.label3,
+          style: TextStyleManager.h1,
         ),
         automaticallyImplyLeading: false,
       ),

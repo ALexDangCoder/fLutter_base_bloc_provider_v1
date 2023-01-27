@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.all(PaddingManager.p8),
                 child: Text(
                   "Login",
-                  style: TextStyleManager.label3,
+                  style: TextStyleManager.h1,
                 ),
               ),
               SizedBox(height: SizeManager.s10),
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.all(PaddingManager.p8),
                 child: Text(
                   "Login Error",
-                  style: TextStyleManager.label3,
+                  style: TextStyleManager.h1,
                 ),
               ),
               SizedBox(height: SizeManager.s10),
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   "Change Locale to Viet Nam",
                   textAlign: TextAlign.center,
-                  style: TextStyleManager.label3,
+                  style: TextStyleManager.h1,
                 ),
               ),
               Assets.images.cashIcon1.svg(),

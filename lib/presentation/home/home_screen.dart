@@ -38,14 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
           HomeSizeInfo(containerSize: _containerSize),
           Text(
             "Aspect Ratio : ${ScreenUtil().pixelRatio}",
-            style: TextStyleManager.label3,
+            style: TextStyleManager.h1,
           ),
           Text(
             LocaleKeys.msg.tr(
               namedArgs: {"userName": "Hoang"},
               args: ["All"],
             ),
-            style: TextStyleManager.label3,
+            style: TextStyleManager.h1,
           ),
           OutlinedButton(
             onPressed: () {
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Text(
               "Get Size",
-              style: TextStyleManager.label3,
+              style: TextStyleManager.h1,
             ),
           ),
           OutlinedButton(
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Text(
               "Change Theme",
-              style: TextStyleManager.label3,
+              style: TextStyleManager.h1,
             ),
           ),
           OutlinedButton(
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Text(
               "Move To List User Screen",
-              style: TextStyleManager.label3,
+              style: TextStyleManager.h1,
             ),
           ),
         ],

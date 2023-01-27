@@ -56,7 +56,7 @@ class _ListUserContentState extends State<ListUserContent> {
                 itemBuilder: (context, index) => Center(
                   child: Text(
                     "User $index",
-                    style: TextStyleManager.label3,
+                    style: TextStyleManager.h1,
                   ),
                 ),
                 separatorBuilder: (context, index) => const Divider(),

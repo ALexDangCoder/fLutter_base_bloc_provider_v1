@@ -15,7 +15,7 @@ class LoginScreenInfo extends StatelessWidget {
       '${Intl.getCurrentLocale()} '
       '${ConfigManager.getInstance()!.appFlavor}',
       textAlign: TextAlign.center,
-      style: TextStyleManager.label3,
+      style: TextStyleManager.h1,
     );
   }
 }
