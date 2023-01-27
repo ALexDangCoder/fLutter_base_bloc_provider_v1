@@ -27,8 +27,8 @@ class ThemeManager with ChangeNotifier {
   static ThemeData get darkTheme {
     return ThemeData(
       primarySwatch: Colors.blue,
-      backgroundColor: ColorsManager.black,
-      scaffoldBackgroundColor: ColorsManager.black,
+      backgroundColor: ColorsManager.raspberry10,
+      scaffoldBackgroundColor: ColorsManager.raspberry100,
       brightness: Brightness.dark,
       fontFamily: 'NotoSans',
     );
