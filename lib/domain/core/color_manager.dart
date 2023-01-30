@@ -25,4 +25,11 @@ class ColorsManager {
   static const cueText = Color(0xff7E7E7E);
   static const divider = Color(0xffDADADA);
   static const white = Colors.white;
+  static const darkGreen100 = Color(0xff234455);
+  static const gray70 = Color(0xff555555);
+  static const gray50 = Color(0xffA0A0A0);
+  static const gray30 = Color(0xffCFD2D2);
+  static const emerald100 = Color(0xff2D5E64);
+  static const emerald10 = Color(0xffEAEFF0);
+  static const black = Color(0xff0F1515);
 }

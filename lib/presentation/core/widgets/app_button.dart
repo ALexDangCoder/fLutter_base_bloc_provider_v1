@@ -19,18 +19,22 @@ class AppButton extends StatelessWidget {
   /// Only applicable when [appButtonType] is [AppButtonType.primary]
   final bool isActive;
 
+  final Color? color;
+
   const AppButton({
     required this.text,
     required this.onTap,
     required this.appButtonType,
     this.appButtonLength = AppButtonLength.long,
     this.isActive = true,
+    this.color,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     late final double? width;
+    final primaryColor = color ?? ColorsManager.raspberry100;
     switch (appButtonLength) {
       case AppButtonLength.long:
         width = double.infinity;
@@ -47,20 +51,20 @@ class AppButton extends StatelessWidget {
         : EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h);
     final backgroundColor = appButtonType == AppButtonType.primary
         ? isActive
-            ? ColorsManager.raspberry100
+            ? primaryColor
             : ColorsManager.divider
         : ColorsManager.white;
     final borderColor = appButtonType == AppButtonType.secondary
-        ? ColorsManager.raspberry100
+        ? primaryColor
         : ColorsManager.white;
     final textColor = appButtonType == AppButtonType.primary
         ? isActive
             ? ColorsManager.white
             : ColorsManager.cueText
-        : ColorsManager.raspberry100;
+        : primaryColor;
     final textStyle = appButtonType == AppButtonType.text
         ? TextStyleManager.description.copyWith(
-            color: ColorsManager.raspberry100,
+            color: primaryColor,
             fontWeight: FontWeight.normal,
           )
         : TextStyleManager.paragraph.copyWith(color: textColor);
