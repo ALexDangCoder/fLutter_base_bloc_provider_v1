@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../domain/core/color_manager.dart';
 import '../../domain/core/style_manager.dart';
 import '../../gen/assets.gen.dart';
+import '../../route/app_routing.dart';
 import '../core/widgets/app_button.dart';
 
 class OnboardScreen extends StatelessWidget {
@@ -49,7 +51,16 @@ class OnboardScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 27.w),
             child: Assets.images.onboardPStage.svg(
-              fit: BoxFit.fitWidth,
+              width: 336.w,
+              height: 219.h,
+              placeholderBuilder: (context) {
+                return Container(
+                  width: 336.w,
+                  height: 219.h,
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator.adaptive(),
+                );
+              },
             ),
           ),
           SizedBox(height: 48.h),
@@ -68,7 +79,9 @@ class OnboardScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 27.w),
             child: AppButton(
               text: 'Let’s go!',
-              onTap: () {},
+              onTap: () {
+                context.router.replace(const SignUpRoute());
+              },
               appButtonType: AppButtonType.primary,
             ),
           ),
