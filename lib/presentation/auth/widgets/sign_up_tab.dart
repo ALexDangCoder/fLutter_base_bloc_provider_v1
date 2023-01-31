@@ -78,7 +78,7 @@ class _SignUpTabState extends State<SignUpTab>
                     ],
                   ),
                   SizedBox(height: 24.h),
-                  AppTextfield(
+                  AppTextField(
                     label: 'Name',
                     hintText: 'Enter your full name',
                     maxLength: 256,
@@ -88,7 +88,7 @@ class _SignUpTabState extends State<SignUpTab>
                     },
                   ),
                   SizedBox(height: 24.h),
-                  AppTextfield(
+                  AppTextField(
                     label: 'Mobile number',
                     hintText: 'Enter your mobile number',
                     prefixText: '+855  |   ',

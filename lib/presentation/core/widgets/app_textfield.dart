@@ -6,7 +6,7 @@ import '../../../domain/core/color_manager.dart';
 import '../../../domain/core/style_manager.dart';
 import '../../../gen/assets.gen.dart';
 
-class AppTextfield extends StatefulWidget {
+class AppTextField extends StatefulWidget {
   final String label;
   final String hintText;
   final bool readOnly;
@@ -18,7 +18,7 @@ class AppTextfield extends StatefulWidget {
   final String prefixText;
   final bool numberOnly;
   final int? maxLength;
-  const AppTextfield({
+  const AppTextField({
     required this.label,
     required this.hintText,
     this.readOnly = false,
@@ -34,10 +34,10 @@ class AppTextfield extends StatefulWidget {
   });
 
   @override
-  State<AppTextfield> createState() => _AppTextfieldState();
+  State<AppTextField> createState() => _AppTextfieldState();
 }
 
-class _AppTextfieldState extends State<AppTextfield> {
+class _AppTextfieldState extends State<AppTextField> {
   final controller = TextEditingController();
   String errorText = '';
 
@@ -109,7 +109,7 @@ class _AppTextfieldState extends State<AppTextfield> {
   }
 
   @override
-  void didUpdateWidget(covariant AppTextfield oldWidget) {
+  void didUpdateWidget(covariant AppTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.errorText != widget.errorText) {
       setState(() {
