@@ -79,7 +79,7 @@ class AppButton extends StatelessWidget {
           border: Border.all(color: borderColor),
           borderRadius: BorderRadius.circular(8.r),
         ),
-        child: Text(text, style: textStyle),
+        child: Text(text, textAlign: TextAlign.center, style: textStyle),
       ),
     );
   }
