@@ -27,6 +27,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             (r) => null,
           );
         },
+        goToLoginTab: (requestTime) {
+          emit(AuthState.goToLoginTab(requestTime: requestTime));
+        },
       );
     });
   }

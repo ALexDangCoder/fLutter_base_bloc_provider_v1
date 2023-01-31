@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../domain/core/color_manager.dart';
@@ -14,6 +15,9 @@ class AppTextfield extends StatefulWidget {
   final void Function(String value)? onChanged;
   final String? errorText;
   final bool isShort;
+  final String prefixText;
+  final bool numberOnly;
+  final int? maxLength;
   const AppTextfield({
     required this.label,
     required this.hintText,
@@ -23,6 +27,9 @@ class AppTextfield extends StatefulWidget {
     this.onChanged,
     this.errorText,
     this.isShort = false,
+    this.prefixText = '',
+    this.numberOnly = false,
+    this.maxLength,
     super.key,
   });
 
@@ -35,6 +42,15 @@ class _AppTextfieldState extends State<AppTextfield> {
   String errorText = '';
 
   Widget? get prefixIcon {
+    if (widget.prefixText.isNotEmpty) {
+      return Padding(
+        padding: EdgeInsets.only(left: 16.w),
+        child: Text(
+          widget.prefixText,
+          style: style.copyWith(color: ColorsManager.plum40),
+        ),
+      );
+    }
     if (widget.prefixIcon == null) return null;
 
     return Padding(
@@ -64,10 +80,16 @@ class _AppTextfieldState extends State<AppTextfield> {
         : TextAlign.start;
   }
 
-  BoxConstraints get iconContraints => BoxConstraints(
+  BoxConstraints get iconContraints {
+    if (widget.prefixText.isEmpty) {
+      return BoxConstraints(
         maxWidth: 36.w,
         maxHeight: 20.h,
       );
+    }
+
+    return const BoxConstraints();
+  }
 
   TextStyle get style =>
       TextStyleManager.paragraph.copyWith(fontWeight: FontWeight.w300);
@@ -126,10 +148,16 @@ class _AppTextfieldState extends State<AppTextfield> {
             textAlignVertical: TextAlignVertical.center,
             style: style.copyWith(color: ColorsManager.text),
             textAlign: textAlign,
+            keyboardType:
+                widget.numberOnly ? TextInputType.number : TextInputType.text,
+            inputFormatters: [
+              if (widget.numberOnly) FilteringTextInputFormatter.digitsOnly,
+            ],
             cursorColor: ColorsManager.text,
             decoration: InputDecoration(
               focusedBorder: border,
               border: border,
+              enabledBorder: border,
               hintText: widget.hintText,
               hintStyle: style.copyWith(color: ColorsManager.plum40),
               contentPadding: EdgeInsets.fromLTRB(leadingPadding, 8.h, 0, 8.h),
@@ -140,7 +168,9 @@ class _AppTextfieldState extends State<AppTextfield> {
               filled: true,
               fillColor:
                   widget.readOnly ? ColorsManager.plum5 : ColorsManager.white,
+              counterText: '',
             ),
+            maxLength: widget.maxLength,
           ),
           error,
         ],

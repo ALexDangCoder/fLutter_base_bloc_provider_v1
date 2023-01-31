@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../domain/auth/value_objects.dart';
 import '../../domain/core/style_manager.dart';
-import '../../gen/assets.gen.dart';
 import '../../injection.dart';
 import 'widgets/login_screen_info.dart';
 
@@ -107,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyleManager.h1,
                 ),
               ),
-              Assets.images.cashIcon1.svg(),
             ],
           ),
         );

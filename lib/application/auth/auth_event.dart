@@ -6,4 +6,7 @@ class AuthEvent with _$AuthEvent {
     required EmailAddress emailAddress,
     required Password password,
   }) = _LoginEvent;
+  const factory AuthEvent.goToLoginTab({
+    required DateTime requestTime,
+  }) = _GoToLoginTabEvent;
 }

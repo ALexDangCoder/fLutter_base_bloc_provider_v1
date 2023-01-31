@@ -7,4 +7,7 @@ class AuthState with _$AuthState {
   const factory AuthState.error({required String message}) = _ErrorState;
   const factory AuthState.authenticated() = _AuthenticatedState;
   const factory AuthState.unauthenticated() = _UnauthenticatedState;
+  const factory AuthState.goToLoginTab({
+    required DateTime requestTime,
+  }) = _GoToLoginTabState;
 }

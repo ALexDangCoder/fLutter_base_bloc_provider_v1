@@ -80,7 +80,7 @@ class OnboardScreen extends StatelessWidget {
             child: AppButton(
               text: 'Let’s go!',
               onTap: () {
-                context.router.replace(const SignUpRoute());
+                context.router.replace(const AuthRoute());
               },
               appButtonType: AppButtonType.primary,
             ),
