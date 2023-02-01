@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../application/auth/auth_bloc.dart';
 import '../../../domain/core/color_manager.dart';
 import '../../../domain/core/style_manager.dart';
+import '../../../route/app_routing.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_textfield.dart';
 import 'term_of_services.dart';
@@ -24,11 +29,8 @@ class _SignUpTabState extends State<SignUpTab>
   bool _tocAccepted = false;
   bool _canSignUp = false;
 
-  @override
-  void initState() {
-    super.initState();
-    debugPrint('init');
-  }
+  // TODO: remove placeholder _duplicatePhoneNumber
+  final _duplicatePhoneNumber = '12345678';
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +115,19 @@ class _SignUpTabState extends State<SignUpTab>
           ),
           AppButton(
             text: 'Next',
-            onTap: () {},
+            onTap: () {
+              if (!_canSignUp) return;
+
+              if (_phoneNumber == _duplicatePhoneNumber) {
+                if (Platform.isAndroid) {
+                  _showAndroidAlert(context);
+                } else {
+                  _showIOSAlert(context);
+                }
+              } else {
+                context.router.push(const OtpRoute());
+              }
+            },
             appButtonType: AppButtonType.primary,
             isActive: _canSignUp,
           ),
@@ -163,6 +177,67 @@ class _SignUpTabState extends State<SignUpTab>
         _canSignUp = signUpAvailable;
       });
     }
+  }
+
+  void _showAndroidAlert(BuildContext screenContext) {
+    showDialog(
+      context: screenContext,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Mobile number already exists. '
+            'Would you like to Log In this existing account or sign up with another number?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // TODO: call login and go to otp
+                context.router.push(const OtpRoute());
+              },
+              child: const Text('Log In'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Use another phone number'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showIOSAlert(BuildContext screenContext) {
+    showDialog(
+      context: screenContext,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: const Text(
+            'Mobile number already exists. '
+            'Would you like to Log In this existing account or sign up with another number?',
+          ),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.of(context).pop();
+                // TODO: call login and go to otp
+                context.router.push(const OtpRoute());
+              },
+              child: const Text('Log In'),
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Use another phone number'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
