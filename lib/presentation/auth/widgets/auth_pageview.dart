@@ -55,8 +55,8 @@ class _AuthPageviewState extends State<AuthPageview> {
                           setState(() {
                             _signUpActive = true;
                           });
-                          tabsRouter.setActiveIndex(0);
                         }
+                        tabsRouter.setActiveIndex(0);
                       },
                     ),
                     AuthTabItem(
@@ -67,8 +67,8 @@ class _AuthPageviewState extends State<AuthPageview> {
                           setState(() {
                             _signUpActive = false;
                           });
-                          tabsRouter.setActiveIndex(1);
                         }
+                        tabsRouter.setActiveIndex(1);
                       },
                     ),
                   ],

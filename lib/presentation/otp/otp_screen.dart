@@ -5,6 +5,12 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Material(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.green,
+      ),
+    );
   }
 }

@@ -7,7 +7,6 @@ import '../presentation/auth/widgets/log_in_screen.dart';
 import '../presentation/auth/widgets/sign_up_screen.dart';
 import '../presentation/onboard/onboard_screen.dart';
 import '../presentation/auth/auth_screen.dart';
-import '../presentation/otp/otp_screen.dart';
 import '../presentation/task_1_start/task_1_start_screen.dart';
 
 part 'app_routing.gr.dart';
@@ -24,7 +23,6 @@ part 'app_routing.gr.dart';
         AutoRoute(page: LogInScreen),
       ],
     ),
-    AutoRoute(page: OtpScreen),
     AutoRoute(page: HomeScreen),
     AutoRoute(page: ListUserScreen),
   ],

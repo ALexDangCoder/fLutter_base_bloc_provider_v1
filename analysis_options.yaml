@@ -9,7 +9,8 @@ analyzer:
     - lib/utils/multi-languages/*.dart
     - lib/gen/*.dart
     - lib/**/*.freezed.dart
-    - '**/*.config.dart'
+    - "**/*.gr.dart"
+    - "**/*.config.dart"
 
 linter:
   rules:
@@ -42,4 +43,3 @@ dart_code_metrics:
     - avoid-shrink-wrap-in-lists
     - avoid-border-all
     - prefer-const-border-radius
-

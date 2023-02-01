@@ -3,15 +3,13 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../application/auth/auth_bloc.dart';
 import '../../../domain/core/color_manager.dart';
 import '../../../domain/core/style_manager.dart';
-import '../../../route/app_routing.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_textfield.dart';
+import '../../otp/dialog/show_otp.dart';
 import 'term_of_services.dart';
 import 'third_party_sign_up.dart';
 
@@ -22,8 +20,7 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen>
-    with AutomaticKeepAliveClientMixin {
+class _SignUpScreenState extends State<SignUpScreen> {
   String _signUpName = '';
   String _phoneNumber = '';
   bool _tocAccepted = false;
@@ -34,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    final tabsRouter = AutoTabsRouter.of(context);
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 27.w),
@@ -125,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                   _showIOSAlert(context);
                 }
               } else {
-                context.router.push(const OtpRoute());
+                showOtp(context);
               }
             },
             appButtonType: AppButtonType.primary,
@@ -145,11 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
-                      context.read<AuthBloc>().add(
-                            AuthEvent.goToLoginTab(
-                              requestTime: DateTime.now(),
-                            ),
-                          );
+                      tabsRouter.setActiveIndex(1);
                     },
                     child: Text(
                       ' Log in',
@@ -193,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               onPressed: () {
                 Navigator.of(context).pop();
                 // TODO: call login and go to otp
-                context.router.push(const OtpRoute());
+                showOtp(context);
               },
               child: const Text('Log In'),
             ),
@@ -224,7 +217,7 @@ class _SignUpScreenState extends State<SignUpScreen>
               onPressed: () {
                 Navigator.of(context).pop();
                 // TODO: call login and go to otp
-                context.router.push(const OtpRoute());
+                showOtp(context);
               },
               child: const Text('Log In'),
             ),
@@ -239,7 +232,4 @@ class _SignUpScreenState extends State<SignUpScreen>
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
