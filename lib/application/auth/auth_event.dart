@@ -9,4 +9,7 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.goToLoginTab({
     required DateTime requestTime,
   }) = _GoToLoginTabEvent;
+  const factory AuthEvent.formatOtpPhoneNumber({
+    required String phoneNumber,
+  }) = _FormatOtpPhoneNumberEvent;
 }

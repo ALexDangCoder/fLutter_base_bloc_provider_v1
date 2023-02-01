@@ -30,6 +30,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         goToLoginTab: (requestTime) {
           emit(AuthState.goToLoginTab(requestTime: requestTime));
         },
+        formatOtpPhoneNumber: (phoneNumber) {
+          final formatted = '+855 ${phoneNumber.substring(0, 2)} '
+              '${phoneNumber.substring(2, 5)} ${phoneNumber.substring(5)} ';
+          emit(AuthState.formatOtpPhoneNumber(phoneNumber: formatted));
+        },
       );
     });
   }

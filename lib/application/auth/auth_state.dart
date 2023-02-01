@@ -10,4 +10,7 @@ class AuthState with _$AuthState {
   const factory AuthState.goToLoginTab({
     required DateTime requestTime,
   }) = _GoToLoginTabState;
+  const factory AuthState.formatOtpPhoneNumber({
+    required String phoneNumber,
+  }) = _FormatOtpPhoneNumberState;
 }

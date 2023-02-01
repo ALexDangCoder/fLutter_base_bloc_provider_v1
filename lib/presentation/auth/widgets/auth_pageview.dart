@@ -29,6 +29,7 @@ class _AuthPageviewState extends State<AuthPageview> {
       ],
       builder: (context, child, animation) {
         final tabsRouter = AutoTabsRouter.of(context);
+        _signUpActive = tabsRouter.activeIndex == 0;
 
         return BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
@@ -51,11 +52,6 @@ class _AuthPageviewState extends State<AuthPageview> {
                       isSignUp: true,
                       isActive: _signUpActive,
                       onTap: () {
-                        if (!_signUpActive) {
-                          setState(() {
-                            _signUpActive = true;
-                          });
-                        }
                         tabsRouter.setActiveIndex(0);
                       },
                     ),
@@ -63,11 +59,6 @@ class _AuthPageviewState extends State<AuthPageview> {
                       isSignUp: false,
                       isActive: !_signUpActive,
                       onTap: () {
-                        if (_signUpActive) {
-                          setState(() {
-                            _signUpActive = false;
-                          });
-                        }
                         tabsRouter.setActiveIndex(1);
                       },
                     ),

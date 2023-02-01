@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../domain/core/color_manager.dart';
+import '../../../domain/core/common_operations.dart';
 import '../../../domain/core/style_manager.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_textfield.dart';
@@ -122,7 +123,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   _showIOSAlert(context);
                 }
               } else {
-                showOtp(context);
+                CommonOperations.dismissKeyboard(context);
+                showOtp(context, phoneNumber: _phoneNumber);
               }
             },
             appButtonType: AppButtonType.primary,
@@ -186,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 // TODO: call login and go to otp
-                showOtp(context);
+                showOtp(context, phoneNumber: _phoneNumber);
               },
               child: const Text('Log In'),
             ),
@@ -217,7 +219,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 // TODO: call login and go to otp
-                showOtp(context);
+                showOtp(context, phoneNumber: _phoneNumber);
               },
               child: const Text('Log In'),
             ),
