@@ -15,14 +15,14 @@ import '../../core/widgets/app_textfield.dart';
 import 'term_of_services.dart';
 import 'third_party_sign_up.dart';
 
-class SignUpTab extends StatefulWidget {
-  const SignUpTab({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignUpTab> createState() => _SignUpTabState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpTabState extends State<SignUpTab>
+class _SignUpScreenState extends State<SignUpScreen>
     with AutomaticKeepAliveClientMixin {
   String _signUpName = '';
   String _phoneNumber = '';

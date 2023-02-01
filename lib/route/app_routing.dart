@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/home/home_screen.dart';
 import '../../presentation/list_user/list_user_screen.dart';
-import '../../presentation/login/login_screen.dart';
+import '../presentation/auth/widgets/log_in_screen.dart';
+import '../presentation/auth/widgets/sign_up_screen.dart';
 import '../presentation/onboard/onboard_screen.dart';
 import '../presentation/auth/auth_screen.dart';
 import '../presentation/otp/otp_screen.dart';
@@ -16,9 +17,14 @@ part 'app_routing.gr.dart';
   routes: [
     AutoRoute(page: Task1StartScreen, initial: true),
     AutoRoute(page: OnboardScreen),
-    AutoRoute(page: AuthScreen),
+    AutoRoute(
+      page: AuthScreen,
+      children: [
+        AutoRoute(page: SignUpScreen, initial: true),
+        AutoRoute(page: LogInScreen),
+      ],
+    ),
     AutoRoute(page: OtpScreen),
-    AutoRoute(page: LoginScreen),
     AutoRoute(page: HomeScreen),
     AutoRoute(page: ListUserScreen),
   ],
