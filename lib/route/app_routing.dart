@@ -30,9 +30,8 @@ part 'app_routing.gr.dart';
       page: EmptyRouterScreen,
       name: 'AccountSetUpStartRouter',
       path: '/account-set-up-start',
-      initial: true,
       children: [
-        AutoRoute(page: AccountSetUpStartScreen),
+        AutoRoute(page: AccountSetUpStartScreen, initial: true),
         AutoRoute(page: AccountSetUpScreen),
       ],
     ),
