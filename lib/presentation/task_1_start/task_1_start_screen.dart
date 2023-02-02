@@ -23,7 +23,6 @@ class Task1StartScreen extends StatelessWidget {
               'Task 1',
               textAlign: TextAlign.center,
               style: TextStyleManager.h1.copyWith(
-                color: ColorsManager.text,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -31,9 +30,7 @@ class Task1StartScreen extends StatelessWidget {
             Text(
               'Sign up for an account and complete your profile',
               textAlign: TextAlign.center,
-              style: TextStyleManager.h2.copyWith(
-                color: ColorsManager.text,
-              ),
+              style: TextStyleManager.h2,
             ),
             SizedBox(height: 221.h),
             AppButton(

@@ -71,9 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   SizedBox(height: 24.h),
                   Text(
                     'Input OTP',
-                    style: TextStyleManager.paragraph.copyWith(
-                      color: ColorsManager.text,
-                    ),
+                    style: TextStyleManager.paragraph,
                   ),
                   SizedBox(height: 8.h),
                   Text(
@@ -82,7 +80,6 @@ class _OtpScreenState extends State<OtpScreen> {
                     'Try resending the OTP if you didn’t get it.',
                     style: TextStyleManager.description.copyWith(
                       fontWeight: FontWeight.normal,
-                      color: ColorsManager.text,
                     ),
                   ),
                   SizedBox(height: 24.h),
@@ -122,7 +119,6 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Text.rich(
                       style: TextStyleManager.description.copyWith(
                         fontWeight: FontWeight.normal,
-                        color: ColorsManager.text,
                       ),
                       TextSpan(
                         children: [

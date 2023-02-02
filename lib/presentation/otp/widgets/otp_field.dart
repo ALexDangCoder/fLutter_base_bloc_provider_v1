@@ -105,7 +105,6 @@ class _OtpFieldState extends State<OtpField> {
                       _otp[index] == _placeHolderOtp ? '' : _otp[index],
                       style: TextStyleManager.paragraph.copyWith(
                         fontWeight: FontWeight.w300,
-                        color: ColorsManager.text,
                       ),
                     ),
                   ),

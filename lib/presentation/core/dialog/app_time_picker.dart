@@ -175,7 +175,6 @@ class _TimePickerHeader extends StatelessWidget {
             helpText ?? '',
             style: TextStyleManager.description.copyWith(
               fontWeight: FontWeight.normal,
-              color: ColorsManager.text,
             ),
           ),
         ),
@@ -359,7 +358,6 @@ class _StringFragment extends StatelessWidget {
             fontSize: 25.sp,
             fontWeight: FontWeight.w600,
             height: 37.5.h / 25.sp,
-            color: ColorsManager.text,
           ),
         ),
       ),

@@ -18,7 +18,6 @@ class ThirdPartySignUp extends StatelessWidget {
             'Sign up with',
             style: TextStyleManager.description.copyWith(
               fontWeight: FontWeight.normal,
-              color: ColorsManager.text,
             ),
           ),
           SizedBox(height: 16.h),
@@ -80,7 +79,6 @@ class _SocialMediaSignUpButton extends StatelessWidget {
               isFacebook ? 'Facebook' : 'Apple ID',
               style: TextStyleManager.description.copyWith(
                 fontWeight: FontWeight.normal,
-                color: ColorsManager.text,
               ),
             ),
           ],

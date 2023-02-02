@@ -134,7 +134,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Text.rich(
             style: TextStyleManager.description.copyWith(
               fontWeight: FontWeight.w400,
-              color: ColorsManager.text,
             ),
             textAlign: TextAlign.center,
             TextSpan(

@@ -137,7 +137,6 @@ class _AppTextfieldState extends State<AppTextField> {
             widget.label,
             style: TextStyleManager.description.copyWith(
               fontWeight: FontWeight.w600,
-              color: ColorsManager.text,
             ),
           ),
           SizedBox(height: 4.h),

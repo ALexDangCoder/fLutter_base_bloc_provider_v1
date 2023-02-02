@@ -9,6 +9,7 @@ class TextStyleManager {
       fontSize: 24.sp,
       height: 36.h / 24.sp,
       fontWeight: FontWeight.w800,
+      color: ColorsManager.text,
     );
   }
 
@@ -17,6 +18,7 @@ class TextStyleManager {
       fontSize: 20.sp,
       height: 30.h / 20.sp,
       fontWeight: FontWeight.w600,
+      color: ColorsManager.text,
     );
   }
 
@@ -25,6 +27,7 @@ class TextStyleManager {
       fontSize: 18.sp,
       height: 27.h / 18.sp,
       fontWeight: FontWeight.w300,
+      color: ColorsManager.text,
     );
   }
 
@@ -33,6 +36,7 @@ class TextStyleManager {
       fontSize: 18.sp,
       height: 24.h / 18.sp,
       fontWeight: FontWeight.w800,
+      color: ColorsManager.text,
     );
   }
 
@@ -41,6 +45,7 @@ class TextStyleManager {
       fontSize: 16.sp,
       height: 24.h / 16.sp,
       fontWeight: FontWeight.w800,
+      color: ColorsManager.text,
     );
   }
 
@@ -49,6 +54,7 @@ class TextStyleManager {
       fontSize: 16.sp,
       height: 24.h / 16.sp,
       fontWeight: FontWeight.w600,
+      color: ColorsManager.text,
     );
   }
 
@@ -57,6 +63,7 @@ class TextStyleManager {
       fontSize: 14.sp,
       height: 19.h / 14.sp,
       fontWeight: FontWeight.w700,
+      color: ColorsManager.text,
     );
   }
 
@@ -65,6 +72,7 @@ class TextStyleManager {
       fontSize: 12.sp,
       height: 18.h / 12.sp,
       fontWeight: FontWeight.w700,
+      color: ColorsManager.text,
     );
   }
 
