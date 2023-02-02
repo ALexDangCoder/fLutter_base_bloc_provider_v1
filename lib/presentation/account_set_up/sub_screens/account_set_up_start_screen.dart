@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../domain/core/color_manager.dart';
 import '../../../domain/core/style_manager.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../route/app_routing.dart';
 import '../../core/widgets/app_button.dart';
 
 class AccountSetUpStartScreen extends StatelessWidget {
@@ -54,7 +56,9 @@ class AccountSetUpStartScreen extends StatelessWidget {
               const Spacer(),
               AppButton(
                 text: 'Let’s go!',
-                onTap: () {},
+                onTap: () {
+                  context.router.navigate(const AccountSetUpRoute());
+                },
                 appButtonType: AppButtonType.primary,
               ),
               SizedBox(height: 8.h),

@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/home/home_screen.dart';
 import '../../presentation/list_user/list_user_screen.dart';
+import '../presentation/account_set_up/account_setup_screen.dart';
 import '../presentation/account_set_up/sub_screens/account_set_up_start_screen.dart';
 import '../presentation/auth/widgets/log_in_screen.dart';
 import '../presentation/auth/widgets/sign_up_screen.dart';
@@ -24,7 +26,16 @@ part 'app_routing.gr.dart';
         AutoRoute(page: LogInScreen),
       ],
     ),
-    AutoRoute(page: AccountSetUpStartScreen),
+    AutoRoute(
+      page: EmptyRouterScreen,
+      name: 'AccountSetUpStartRouter',
+      path: '/account-set-up-start',
+      initial: true,
+      children: [
+        AutoRoute(page: AccountSetUpStartScreen),
+        AutoRoute(page: AccountSetUpScreen),
+      ],
+    ),
     AutoRoute(page: HomeScreen),
     AutoRoute(page: ListUserScreen),
   ],
