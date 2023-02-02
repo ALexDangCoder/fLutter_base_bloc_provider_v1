@@ -53,10 +53,10 @@ class AppButton extends StatelessWidget {
         ? isActive
             ? primaryColor
             : ColorsManager.divider
-        : ColorsManager.white;
+        : ColorsManager.transparent;
     final borderColor = appButtonType == AppButtonType.secondary
         ? primaryColor
-        : ColorsManager.white;
+        : ColorsManager.transparent;
     final textColor = appButtonType == AppButtonType.primary
         ? isActive
             ? ColorsManager.white
