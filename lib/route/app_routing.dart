@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/home/home_screen.dart';
 import '../../presentation/list_user/list_user_screen.dart';
+import '../presentation/account_set_up/account_set_up_screen.dart';
 import '../presentation/auth/widgets/log_in_screen.dart';
 import '../presentation/auth/widgets/sign_up_screen.dart';
 import '../presentation/onboard/onboard_screen.dart';
@@ -23,6 +24,7 @@ part 'app_routing.gr.dart';
         AutoRoute(page: LogInScreen),
       ],
     ),
+    AutoRoute(page: AccountSetUpScreen),
     AutoRoute(page: HomeScreen),
     AutoRoute(page: ListUserScreen),
   ],

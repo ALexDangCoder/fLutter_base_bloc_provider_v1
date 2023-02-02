@@ -50,17 +50,10 @@ class OnboardScreen extends StatelessWidget {
           SizedBox(height: 94.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 27.w),
-            child: Assets.images.onboardPStage.svg(
+            child: Image.asset(
+              Assets.images.onboardPStage.path,
               width: 336.w,
               height: 219.h,
-              placeholderBuilder: (context) {
-                return Container(
-                  width: 336.w,
-                  height: 219.h,
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator.adaptive(),
-                );
-              },
             ),
           ),
           SizedBox(height: 48.h),
