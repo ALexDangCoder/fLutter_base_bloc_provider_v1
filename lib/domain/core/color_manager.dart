@@ -32,4 +32,5 @@ class ColorsManager {
   static const emerald100 = Color(0xff2D5E64);
   static const emerald10 = Color(0xffEAEFF0);
   static const black = Color(0xff0F1515);
+  static const transparent = Colors.transparent;
 }
