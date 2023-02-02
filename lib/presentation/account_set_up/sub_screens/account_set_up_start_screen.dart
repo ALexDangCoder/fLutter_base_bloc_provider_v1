@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../domain/core/color_manager.dart';
-import '../../domain/core/style_manager.dart';
-import '../../gen/assets.gen.dart';
-import '../core/widgets/app_button.dart';
+import '../../../domain/core/color_manager.dart';
+import '../../../domain/core/style_manager.dart';
+import '../../../gen/assets.gen.dart';
+import '../../core/widgets/app_button.dart';
 
-class AccountSetUpScreen extends StatelessWidget {
+class AccountSetUpStartScreen extends StatelessWidget {
   final String userName;
-  const AccountSetUpScreen({
+  const AccountSetUpStartScreen({
     this.userName = '',
     super.key,
   });
