@@ -58,9 +58,6 @@ Future<void> get _flavor async {
 }
 
 class MyApp extends StatefulWidget {
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -97,7 +94,11 @@ class _MyAppState extends State<MyApp> {
           },
           title: 'Flutter Template',
           routerDelegate: _appRouter.delegate(
-            navigatorObservers: () => [MyApp.observer],
+            navigatorObservers: () => [
+              FirebaseAnalyticsObserver(
+                analytics: FirebaseAnalytics.instance,
+              ),
+            ],
           ),
           routeInformationParser: _appRouter.defaultRouteParser(),
           debugShowCheckedModeBanner: false,
