@@ -11,7 +11,7 @@ class AppRouting {
     final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
       RouteDefine.loginScreen.name: (_) => LoginRoute.route,
       RouteDefine.homeScreen.name: (_) => HomeRoute.route,
-      RouteDefine.listUserScreen.name: (_) => ListUserRoute.route,
+      RouteDefine.listUserScreen.name: (_) => ListUserRoute.route
     };
 
     final WidgetBuilder? routeBuilder = routes[settings.name];
