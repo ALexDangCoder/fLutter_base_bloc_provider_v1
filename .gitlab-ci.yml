@@ -73,7 +73,6 @@ code_analyze_check:
 diawi_android_dev:
   stage: build
   allow_failure: true
-  needs: [code_analyze_check]
   variables:
     BUILD_FLAVOR_KEY: "dev"
   <<: *mobileBeforeScript
