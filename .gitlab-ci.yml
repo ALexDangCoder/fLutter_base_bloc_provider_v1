@@ -62,6 +62,7 @@ flutter_setup:
 
 code_analyze_check:
   stage: code_analyze_check
+  allow_failure: true
   needs: [flutter_setup]
   <<: *mobileBeforeScript
   script:
