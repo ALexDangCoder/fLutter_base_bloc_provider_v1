@@ -3,7 +3,7 @@ GREEN='\033[1;32m'
 echo "${GREEN}========================Setup App Start======================="
 if hash fvm 2>/dev/null; then
   echo "Using fvm flutter version"
-  fvm use 3.13.0
+  fvm use 3.16.7
   fvm flutter doctor -v
   fvm flutter clean
   fvm flutter pub get
