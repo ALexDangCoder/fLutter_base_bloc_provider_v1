@@ -1,7 +1,7 @@
 # Getting Started
 
-- Flutter version using : 3.10.0 (stable at 10/05/2023)
-- Platform android : 33, Build-tools : 32.1.0-rc1
+- Flutter version using : 3.16.7 (stable at 12/01/2024)
+- Platform android : 34, Build-tools : 32.1.0-rc1
 - Java version OpenJDK 11.0.12
 - Gradle version 7.4
 - Build:gradle 7.2.2

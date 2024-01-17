@@ -60,7 +60,7 @@ flutter_setup:
   script:
     - brew tap leoafarias/fvm
     - brew install fvm
-    - echo Y | fvm global 3.13.0
+    - echo Y | fvm global 3.16.7
 
 code_analyze_check:
   stage: code_analyze_check
