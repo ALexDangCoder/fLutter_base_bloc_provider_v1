@@ -1,14 +1,13 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app/app.dart';
@@ -90,16 +89,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(400, 800),
-      builder: (_, __) => MaterialApp(
+      builder: (_, __) => MaterialApp.router(
         builder: (context, child) {
           return child ?? const SizedBox();
         },
         title: 'Flutter Template',
-        navigatorObservers: <NavigatorObserver>[MyApp.observer],
-        navigatorKey: NavigationUtil.rootKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteDefine.loginScreen.name,
-        onGenerateRoute: AppRouting.generateRoute,
+        routerConfig: AppRouting.generateRoute,
         theme: ThemeManager.lightTheme,
         darkTheme: ThemeManager.darkTheme,
         themeMode: appTheme.currentTheme,
@@ -107,6 +103,23 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
       ),
+      // builder: (_, __) => MaterialApp(
+      //   builder: (context, child) {
+      //     return child ?? const SizedBox();
+      //   },
+      //   title: 'Flutter Template',
+      //   navigatorObservers: <NavigatorObserver>[MyApp.observer],
+      //   navigatorKey: NavigationUtil.rootKey,
+      //   debugShowCheckedModeBanner: false,
+      //   initialRoute: RouteDefine.loginScreen.name,
+      //   onGenerateRoute: AppRouting.generateRoute,
+      //   theme: ThemeManager.lightTheme,
+      //   darkTheme: ThemeManager.darkTheme,
+      //   themeMode: appTheme.currentTheme,
+      //   localizationsDelegates: context.localizationDelegates,
+      //   supportedLocales: context.supportedLocales,
+      //   locale: context.locale,
+      // ),
     );
   }
 }

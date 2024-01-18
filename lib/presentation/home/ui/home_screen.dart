@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../app/app.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
@@ -75,9 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteDefine.listUserScreen.name);
-            },
+            onPressed: () => context.go(RouteDefine.listUserScreen.path),
             child: Text(
               "Move To List User Screen",
               style: TextStyleManager.label3,

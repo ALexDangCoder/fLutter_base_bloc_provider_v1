@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../app/app.dart';
 import '../../../app/managers/constant_manager.dart';
@@ -25,11 +25,11 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         switch (state.status) {
           case LoginStateStatus.success:
-            LoadingDialog.hideLoadingDialog;
-            Navigator.pushNamed(context, RouteDefine.homeScreen.name);
+            LoadingDialog.hideLoadingDialog(context);
+            context.go(RouteDefine.homeScreen.path);
             break;
           case LoginStateStatus.error:
-            LoadingDialog.hideLoadingDialog;
+            LoadingDialog.hideLoadingDialog(context);
             break;
           case LoginStateStatus.loading:
             LoadingDialog.showLoadingDialog(context);
