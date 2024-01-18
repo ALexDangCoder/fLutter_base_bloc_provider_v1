@@ -103,23 +103,6 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
       ),
-      // builder: (_, __) => MaterialApp(
-      //   builder: (context, child) {
-      //     return child ?? const SizedBox();
-      //   },
-      //   title: 'Flutter Template',
-      //   navigatorObservers: <NavigatorObserver>[MyApp.observer],
-      //   navigatorKey: NavigationUtil.rootKey,
-      //   debugShowCheckedModeBanner: false,
-      //   initialRoute: RouteDefine.loginScreen.name,
-      //   onGenerateRoute: AppRouting.generateRoute,
-      //   theme: ThemeManager.lightTheme,
-      //   darkTheme: ThemeManager.darkTheme,
-      //   themeMode: appTheme.currentTheme,
-      //   localizationsDelegates: context.localizationDelegates,
-      //   supportedLocales: context.supportedLocales,
-      //   locale: context.locale,
-      // ),
     );
   }
 }
