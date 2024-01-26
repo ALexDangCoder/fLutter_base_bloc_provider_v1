@@ -1,10 +1,8 @@
-part of app_layer;
+part of '../app.dart';
 
 class NavigationUtil {
-  static final GlobalKey<NavigatorState> _rootNavigator = GlobalKey();
-
-  // For get current context. Can use rootKey.currentContext
-  static GlobalKey<NavigatorState> get rootKey => _rootNavigator;
-
-  static BuildContext? get currentContext => rootKey.currentContext;
+  static final GlobalKey<NavigatorState> rootNavigatorKey =
+      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> shellNavigatorKey =
+      GlobalKey<NavigatorState>();
 }

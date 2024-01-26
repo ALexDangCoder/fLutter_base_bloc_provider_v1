@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/app.dart';
@@ -9,10 +8,12 @@ import '../../../app/managers/constant_manager.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
 import '../../../gen/assets.gen.dart';
 import '../../common/dialog/loading_dialog.dart';
+import '../../home/home_route.dart';
+import '../../main/main_route.dart';
 import '../bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -25,11 +26,11 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         switch (state.status) {
           case LoginStateStatus.success:
-            LoadingDialog.hideLoadingDialog;
-            Navigator.pushNamed(context, RouteDefine.homeScreen.name);
+            LoadingDialog.hideLoadingDialog(context);
+            HomeRoute().go(context);
             break;
           case LoginStateStatus.error:
-            LoadingDialog.hideLoadingDialog;
+            LoadingDialog.hideLoadingDialog(context);
             break;
           case LoginStateStatus.loading:
             LoadingDialog.showLoadingDialog(context);

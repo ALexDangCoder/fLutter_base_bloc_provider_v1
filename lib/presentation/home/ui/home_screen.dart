@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/app.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
+import '../../list_user/list_user_route.dart';
+import '../../main/main_route.dart';
 
 // Project imports:
 
@@ -24,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         children: [
           Container(
             key: _keyRed,
@@ -75,9 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           OutlinedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteDefine.listUserScreen.name);
-            },
+            onPressed: () => ListUserRoute().go(context),
             child: Text(
               "Move To List User Screen",
               style: TextStyleManager.label3,

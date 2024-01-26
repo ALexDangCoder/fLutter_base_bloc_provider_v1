@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 import 'ui/home_screen.dart';
 
-// Project imports:
-
-class HomeRoute {
-  static Widget get route => const HomeScreen();
+class HomeRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const HomeScreen();
 }

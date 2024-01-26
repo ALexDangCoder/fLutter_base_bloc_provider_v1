@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../app/app.dart';
 import '../../../app/managers/constant_manager.dart';
 
 // Project imports:
 
 class LoadingDialog {
-  static void get hideLoadingDialog {
-    if (_dialogIsVisible(NavigationUtil.currentContext!)) {
-      Navigator.of(NavigationUtil.currentContext!).pop();
+  static void hideLoadingDialog(BuildContext context) {
+    if (_dialogIsVisible(context)) {
+      context.pop();
     }
   }
 
@@ -35,7 +35,7 @@ class LoadingDialog {
         ],
       ),
     );
-    if (!_dialogIsVisible(NavigationUtil.currentContext!)) {
+    if (!_dialogIsVisible(context)) {
       showDialog(
         barrierDismissible: false,
         context: context,

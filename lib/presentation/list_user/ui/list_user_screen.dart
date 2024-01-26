@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../app/app.dart';
+import '../../detail/detail_route.dart';
+import '../../main/main_route.dart';
 import '../bloc/list_user_bloc.dart';
 
 // Project imports:
 
 class ListUserScreen extends StatefulWidget {
-  const ListUserScreen({Key? key}) : super(key: key);
+  const ListUserScreen({super.key});
 
   @override
   _ListUserScreenState createState() {
@@ -57,9 +58,12 @@ class _ListUserScreenState extends State<ListUserScreen> {
                 .add(const ListUserEvent.loadMore()),
             child: ListView.separated(
               itemBuilder: (context, index) => Center(
-                child: Text(
-                  "User $index",
-                  style: TextStyleManager.label3,
+                child: GestureDetector(
+                  onTap: () => DetailRoute(index: index).go(context),
+                  child: Text(
+                    "User $index",
+                    style: TextStyleManager.label3,
+                  ),
                 ),
               ),
               separatorBuilder: (context, index) => const Divider(),
