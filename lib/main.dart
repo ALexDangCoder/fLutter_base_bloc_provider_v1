@@ -9,8 +9,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import 'app/app.dart';
+import 'presentation/login/login_route.dart';
+import 'presentation/main/main_route.dart';
 
 void main() async {
   await _beforeRunApp();
@@ -70,6 +73,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var appTheme = getIt<ThemeManager>();
+  final GoRouter _router = GoRouter(
+    routes: [$loginRoute, $mainRoute],
+    initialLocation: '/login',
+    navigatorKey: NavigationUtil.rootNavigatorKey,
+  );
 
   @override
   void initState() {
@@ -95,7 +103,7 @@ class _MyAppState extends State<MyApp> {
         },
         title: 'Flutter Template',
         debugShowCheckedModeBanner: false,
-        routerConfig: AppRouting.generateRoute,
+        routerConfig: _router,
         theme: ThemeManager.lightTheme,
         darkTheme: ThemeManager.darkTheme,
         themeMode: appTheme.currentTheme,
