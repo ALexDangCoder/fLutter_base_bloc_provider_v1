@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../app/app.dart';
 import '../bloc/list_user_bloc.dart';
 
 // Project imports:
 
 class ListUserScreen extends StatefulWidget {
-  const ListUserScreen({Key? key}) : super(key: key);
+  const ListUserScreen({super.key});
 
   @override
   _ListUserScreenState createState() {
@@ -34,7 +32,7 @@ class _ListUserScreenState extends State<ListUserScreen> {
       appBar: AppBar(
         title: Text(
           "List User",
-          style: TextStyleManager.label3,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         automaticallyImplyLeading: false,
       ),
@@ -59,7 +57,6 @@ class _ListUserScreenState extends State<ListUserScreen> {
               itemBuilder: (context, index) => Center(
                 child: Text(
                   "User $index",
-                  style: TextStyleManager.label3,
                 ),
               ),
               separatorBuilder: (context, index) => const Divider(),

@@ -1,15 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/app.dart';
 import '../../../app/multi-languages/multi_languages_utils.dart';
+import '../../app_configuration/app_configuration_bloc.dart';
 
 // Project imports:
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -42,19 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
               "\nHeight Ratio : ${ScreenUtil().scaleHeight} "
               "\nText Ratio : ${ScreenUtil().scaleText} "
               "\n$defaultTargetPlatform",
-              style: TextStyleManager.label3,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           Text(
             "Aspect Ratio : ${ScreenUtil().pixelRatio}",
-            style: TextStyleManager.label3,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
           Text(
             LocaleKeys.msg.tr(
               namedArgs: {"userName": "Hoang"},
               args: ["All"],
             ),
-            style: TextStyleManager.label3,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
           OutlinedButton(
             onPressed: () {
@@ -62,16 +63,18 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Text(
               "Get Size",
-              style: TextStyleManager.label3,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           OutlinedButton(
             onPressed: () {
-              getIt<ThemeManager>().changeTheme();
+              context
+                  .read<AppConfigurationBloc>()
+                  .add(const AppConfigurationEvent.changeTheme());
             },
             child: Text(
               "Change Theme",
-              style: TextStyleManager.label3,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
           OutlinedButton(
@@ -80,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Text(
               "Move To List User Screen",
-              style: TextStyleManager.label3,
+              style: Theme.of(context).textTheme.displayLarge,
             ),
           ),
         ],

@@ -9,15 +9,13 @@ Future<void> setupInjection() => getIt.init();
 abstract class RegisterModule {
   @Named('BaseUrl')
   String get baseUrl => ConfigManager.getInstance().apiBaseUrl;
+
   @Named('Timeout')
   Duration get timeout => const Duration(seconds: 10);
 
   @preResolve
   Future<SharedPreferencesManager> get prefs =>
       SharedPreferencesManager.getInstance();
-
-  @lazySingleton
-  ThemeManager get themeManager => ThemeManager();
 
   @lazySingleton
   Dio dio(
