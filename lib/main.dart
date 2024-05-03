@@ -8,9 +8,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app/app.dart';
+import 'presentation/app_configuration/app_configuration_bloc.dart';
 
 export 'package:easy_localization/easy_localization.dart';
 
@@ -62,52 +64,45 @@ Future<void> get _flavor async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  var appTheme = getIt<ThemeManager>();
-
-  @override
-  void initState() {
-    appTheme.addListener(() {
-      setState(() {});
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    appTheme.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(400, 800),
-      builder: (_, __) => MaterialApp(
-        builder: (context, child) {
-          return child ?? const SizedBox();
-        },
-        title: 'Flutter Template',
-        navigatorObservers: <NavigatorObserver>[MyApp.observer],
-        navigatorKey: NavigationUtil.rootKey,
-        debugShowCheckedModeBanner: false,
-        initialRoute: RouteDefine.loginScreen.name,
-        onGenerateRoute: AppRouting.generateRoute,
-        theme: ThemeManager.lightTheme,
-        darkTheme: ThemeManager.darkTheme,
-        themeMode: appTheme.currentTheme,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-      ),
+      builder: (_, __) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => AppConfigurationBloc(),
+            ),
+          ],
+          child: BlocBuilder<AppConfigurationBloc, AppConfigurationState>(
+            buildWhen: (pre, cur) => pre.themeMode != cur.themeMode,
+            builder: (context, appConfig) {
+              return MaterialApp(
+                builder: (context, child) {
+                  return child ?? const SizedBox();
+                },
+                title: 'Flutter Template',
+                navigatorObservers: <NavigatorObserver>[observer],
+                navigatorKey: NavigationUtil.rootKey,
+                debugShowCheckedModeBanner: false,
+                initialRoute: RouteDefine.loginScreen.name,
+                onGenerateRoute: AppRouting.generateRoute,
+                theme: appConfig.lightTheme,
+                darkTheme: appConfig.darkTheme,
+                themeMode: appConfig.themeMode,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

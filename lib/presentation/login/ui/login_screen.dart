@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/app.dart';
@@ -12,7 +11,7 @@ import '../../common/dialog/loading_dialog.dart';
 import '../bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -46,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: Text(
                   "Login Screen ${LocaleKeys.title.tr()} ${Intl.getCurrentLocale()} ${ConfigManager.getInstance().appFlavor}",
-                  style: TextStyleManager.label3,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
               MaterialButton(
@@ -63,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.all(PaddingManager.p8),
                 child: Text(
                   "Login",
-                  style: TextStyleManager.label3,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
               SizedBox(height: SizeManager.s10),
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.all(PaddingManager.p8),
                 child: Text(
                   "Login Error",
-                  style: TextStyleManager.label3,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
               SizedBox(height: SizeManager.s10),
@@ -96,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   "Change Locale to Viet Nam",
                   textAlign: TextAlign.center,
-                  style: TextStyleManager.label3,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
               Assets.images.cashIcon1.svg(),
